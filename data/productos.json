@@ -1,0 +1,52 @@
+[
+  {
+    "id": "p001",
+    "name": "Hamburguesa Clásica",
+    "description": "Carne 100% res, queso cheddar, lechuga, tomate y salsa secreta en pan artesanal.",
+    "category": "Hamburguesas",
+    "price": 8.99,
+    "image": "assets/images/productos/hamburguesa-clasica.jpg",
+    "tags": ["clásico", "carne", "popular"],
+    "available": true
+  },
+  {
+    "id": "p002",
+    "name": "Papas a la Francesa",
+    "description": "Papas doradas y crujientes con un toque de sal marina.",
+    "category": "Acompañamientos",
+    "price": 3.49,
+    "image": "assets/images/productos/papas-francesas.jpg",
+    "tags": ["vegetariano", "crujiente"],
+    "available": true
+  },
+  {
+    "id": "p003",
+    "name": "Alitas BBQ",
+    "description": "Alitas de pollo bañadas en salsa barbacoa casera, acompañadas de aderezo ranch.",
+    "category": "Entradas",
+    "price": 9.99,
+    "image": "assets/images/productos/alitas-bbq.jpg",
+    "tags": ["picante", "para compartir"],
+    "available": true
+  },
+  {
+    "id": "p004",
+    "name": "Ensalada César",
+    "description": "Lechuga romana, crutones, queso parmesano y aderezo César fresco.",
+    "category": "Ensaladas",
+    "price": 6.99,
+    "image": "assets/images/productos/ensalada-cesar.jpg",
+    "tags": ["fresco", "ligero", "vegetariano"],
+    "available": true
+  },
+  {
+    "id": "p005",
+    "name": "Malteada de Vainilla",
+    "description": "Malteada cremosa de vainilla con cobertura de crema batida.",
+    "category": "Bebidas",
+    "price": 4.49,
+    "image": "assets/images/productos/malteada-vainilla.jpg",
+    "tags": ["dulce", "frío"],
+    "available": true
+  }
+]

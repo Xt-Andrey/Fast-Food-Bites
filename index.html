@@ -14,43 +14,7 @@
         <i class="fab fa-whatsapp"></i>
     </a>
 
-    <nav class="navbar">
-        <div class="navbar-glass">
-            <div class="logo">
-                <div class="logo-icon">
-                    <i class="fas fa-fire-flame-curved"></i>
-                </div>
-                <span>Fast Food <strong>Bites</strong></span>
-            </div>
-            <div class="nav-links">
-                <a href="#products-grid">Menú</a> 
-                <a href="#about-us">Nosotros</a>
-                <a href="#contact-us">Contacto</a>
-                <button class="suggestion-button" id="open-suggestion-btn">
-                    <i class="fas fa-comment-dots"></i>
-                    <span>Sugerencias</span>
-                </button>
-                <button class="login-button" id="open-login-btn-desktop">
-                    <i class="fas fa-user-circle"></i>
-                    <span>Iniciar Sesión</span>
-                </button>
-            </div>
-            <div class="cart-btn-wrapper">
-                <button class="cart-button suggestion-button-mobile" id="open-suggestion-btn-mobile">
-                    <i class="fas fa-comment-dots"></i>
-                </button>
-                <button class="cart-button login-button-mobile" id="open-login-btn-mobile">
-                    <i class="fas fa-user-circle"></i>
-                    <span>Acceso</span>
-                </button>
-                <button class="cart-button" id="open-cart-btn">
-                    <i class="fas fa-shopping-cart"></i>
-                    <span>Carrito</span>
-                    <span id="cart-count">0</span>
-                </button>
-            </div>
-        </div>
-    </nav>
+    <header-component></header-component>
 
     <section class="hero">
         <div class="hero-particles"></div>
@@ -69,7 +33,7 @@
             </div>
             <div class="slide promo-2">
                 <div class="promo-text">
-                    <h3>🍟 Combo Familiar Deluxe</h3>
+                    <h3> Combo Familiar Deluxe</h3>
                     <p>4 Menús, papas grandes y 2 malteadas por solo $193,000.00</p>
                 </div>
                 <button class="promo-btn" data-promo-id="2">¡Pedir Ahora!</button>
@@ -112,143 +76,16 @@
             </div>
     </section>
 
-    <aside class="cart-sidebar" id="cart-sidebar">
-        <div class="cart-header">
-            <h2><i class="fas fa-shopping-basket"></i> Tu Pedido</h2>
-            <button class="close-btn" id="close-cart-btn">×</button>
-        </div>
-        
-        <div class="cart-items-list" id="cart-items-list">
-            <div class="empty-cart-message">
-                <i class="fas fa-shopping-cart"></i>
-                <p>Tu carrito está vacío</p>
-            </div>
-        </div>
-
-        <div class="cart-summary">
-            <p><span>Subtotal:</span> <span id="cart-subtotal">$0.00</span></p>
-            <p><span>Envío:</span> <span id="cart-shipping-price">$9,000.00</span></p>
-            <h3><span>Total:</span> <span id="cart-total">$9,000.00</span></h3>
-            <button class="checkout-btn" id="checkout-btn">
-                <i class="fas fa-check-circle"></i> Finalizar Pedido
-            </button>
-        </div>
-    </aside>
+    <sidebar-component></sidebar-component>
     
-    <div class="user-modal" id="user-modal">
-        <div class="user-modal-content">
-            <div class="user-modal-header">
-                <h3><i class="fas fa-lock"></i> Acceso de Usuario</h3>
-                <button class="close-btn" id="close-user-modal">×</button>
-            </div>
-
-            <div class="user-tabs">
-                <button class="tab-button active" data-tab="login">Iniciar Sesión</button>
-                <button class="tab-button" data-tab="register">Registrarme</button>
-            </div>
-
-            <div class="tab-content" id="login-form-tab">
-                <form id="login-form" class="auth-form">
-                    <div class="form-group">
-                        <label for="login-email">Correo Electrónico</label>
-                        <input type="email" id="login-email" required placeholder="tu.email@ejemplo.com">
-                    </div>
-                    <div class="form-group">
-                        <label for="login-password">Contraseña</label>
-                        <input type="password" id="login-password" required placeholder="Ingresa tu contraseña">
-                    </div>
-                    <button type="submit" class="submit-btn full-width">Acceder</button>
-                    <a href="#" class="forgot-password">¿Olvidaste tu contraseña?</a>
-                </form>
-            </div>
-
-            <div class="tab-content hidden" id="register-form-tab">
-                <form id="register-form" class="auth-form">
-                    <div class="form-group">
-                        <label for="register-name">Nombre Completo</label>
-                        <input type="text" id="register-name" required placeholder="Tu nombre y apellido">
-                    </div>
-                    <div class="form-group">
-                        <label for="register-email">Correo Electrónico</label>
-                        <input type="email" id="register-email" required placeholder="tu.email@ejemplo.com">
-                    </div>
-                    <div class="form-group">
-                        <label for="register-password">Contraseña</label>
-                        <input type="password" id="register-password" required placeholder="Mínimo 6 caracteres">
-                    </div>
-                    <button type="submit" class="submit-btn full-width">Crear Cuenta</button>
-                </form>
-            </div>
-        </div>
-    </div>
+    <user-modal-component></user-modal-component>
     
-    <div class="user-modal suggestion-modal" id="suggestion-modal">
-        <div class="user-modal-content">
-            <div class="user-modal-header">
-                <h3><i class="fas fa-lightbulb"></i> Envía tu Sugerencia</h3>
-                <button class="close-btn" id="close-suggestion-modal">×</button>
-            </div>
-
-            <form id="suggestion-form" class="auth-form">
-                <div class="form-group">
-                    <label for="suggestion-email">Correo Electrónico</label>
-                    <input type="email" id="suggestion-email" required placeholder="tu.email@ejemplo.com">
-                </div>
-                <div class="form-group">
-                    <label for="suggestion-subject">Asunto</label>
-                    <input type="text" id="suggestion-subject" required placeholder="Ej. Nuevo producto, error en app...">
-                </div>
-                <div class="form-group">
-                    <label for="suggestion-message">Mensaje</label>
-                    <textarea id="suggestion-message" rows="5" required placeholder="Detalla tu sugerencia aquí..."></textarea>
-                </div>
-                <button type="submit" class="submit-btn full-width">Enviar Sugerencia</button>
-            </form>
-        </div>
-    </div>
+    <suggestion-modal-component></suggestion-modal-component>
     <div class="overlay" id="overlay"></div>
 
-    <footer class="footer">
-        <div class="footer-columns-wrapper">
-            <div class="footer-column">
-                <h4>Categorías</h4>
-                <ul>
-                    <li><a href="#products-grid">Hamburguesas Insignia</a></li>
-                    <li><a href="#products-grid">Parrilla & Creaciones</a></li>
-                    <li><a href="#products-grid">Ensaladas & Fit</a></li>
-                    <li><a href="#products-grid">Postres & Bebidas</a></li>
-                    <li><a href="#products-grid">Acompañamientos</a></li>
-                </ul>
-            </div>
+    <footer-component></footer-component>
 
-            <div class="footer-column">
-                <h4>Sobre Fast Food Bites</h4>
-                <ul>
-                    <li><a href="#about-us">Quiénes Somos</a></li>
-                    <li><a href="#">Sostenibilidad</a></li>
-                    <li><a href="#">Eventos</a></li>
-                    <li><a href="#contact-us">Contáctanos (PQRS)</a></li>
-                </ul>
-            </div>
-
-            <div class="footer-column">
-                <h4>Legales</h4>
-                <ul>
-                    <li><a href="#">Política de tratamiento de datos</a></li>
-                    <li><a href="#">Términos y Condiciones de la página web</a></li>
-                    <li><a href="#">Términos y Condiciones de Compañías</a></li>
-                    <li><a href="#">Gestión de cookies</a></li>
-                </ul>
-            </div>
-        </div>
-
-        <div class="footer-bottom-bar">
-             <div class="logo-footer">Fast Food <strong>Bites</strong></div>
-            <p>&copy; <span id="current-year">2025</span> Fast Food Bites. Todos los derechos registrados.</p>
-            <p class="tech-info">Desarrollado con HTML, CSS y JavaScript.</p>
-        </div>
-    </footer>
-
-    <script src="assets/js/script.js"></script>
+    <script src="assets/js/components.js"></script>
+    <script src="assets/js/main.js"></script>
 </body>
 </html>
