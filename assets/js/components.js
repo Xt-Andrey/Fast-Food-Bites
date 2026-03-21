@@ -307,155 +307,7 @@ class HeaderComponent extends HTMLElement {
         `);
     }
 
-                nav.navbar {
-                    position: fixed;
-                    top: 0;
-                    left: 0;
-                    right: 0;
-                    z-index: 1000;
-                    background: rgba(255, 255, 255, 0.95);
-                    backdrop-filter: blur(10px);
-                    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-                    padding: 1rem 0;
-                    transition: all 0.3s ease;
-                }
-
-                .navbar-glass {
-                    max-width: 1200px;
-                    margin: 0 auto;
-                    display: flex;
-                    justify-content: space-between;
-                    align-items: center;
-                    padding: 0 2rem;
-                }
-
-                .logo {
-                    display: flex;
-                    align-items: center;
-                    gap: 0.5rem;
-                    font-size: 1.5rem;
-                    font-weight: bold;
-                    color: #ff6b35;
-                }
-
-                .logo-icon {
-                    color: #ff6b35;
-                }
-
-                .nav-links {
-                    display: flex;
-                    gap: 2rem;
-                    align-items: center;
-                }
-
-                .nav-links a {
-                    text-decoration: none;
-                    color: #333;
-                    font-weight: 500;
-                    transition: color 0.3s ease;
-                }
-
-                .nav-links a:hover {
-                    color: #ff6b35;
-                }
-
-                .suggestion-button, .login-button {
-                    background: none;
-                    border: none;
-                    cursor: pointer;
-                    display: flex;
-                    align-items: center;
-                    gap: 0.5rem;
-                    color: #333;
-                    font-weight: 500;
-                    transition: color 0.3s ease;
-                }
-
-                .suggestion-button:hover, .login-button:hover {
-                    color: #ff6b35;
-                }
-
-                .cart-btn-wrapper {
-                    display: flex;
-                    gap: 1rem;
-                    align-items: center;
-                }
-
-                .cart-button {
-                    background: #ff6b35;
-                    color: white;
-                    border: none;
-                    padding: 0.5rem 1rem;
-                    border-radius: 25px;
-                    cursor: pointer;
-                    display: flex;
-                    align-items: center;
-                    gap: 0.5rem;
-                    font-weight: 500;
-                    transition: all 0.3s ease;
-                }
-
-                .cart-button:hover {
-                    background: #e55a2b;
-                    transform: translateY(-2px);
-                }
-
-                .suggestion-button-mobile, .login-button-mobile {
-                    display: none;
-                }
-
-                @media (max-width: 768px) {
-                    .nav-links {
-                        display: none;
-                    }
-
-                    .suggestion-button-mobile, .login-button-mobile {
-                        display: flex;
-                    }
-                }
-            </style>
-            <nav class="navbar">
-                <div class="navbar-glass">
-                    <div class="logo">
-                        <div class="logo-icon">
-                            <i class="fas fa-fire-flame-curved"></i>
-                        </div>
-                        <span>Fast Food <strong>Bites</strong></span>
-                    </div>
-                    <div class="nav-links">
-                        <a href="#products-grid">Menú</a>
-                        <a href="#about-us">Nosotros</a>
-                        <a href="#contact-us">Contacto</a>
-                        <button class="suggestion-button" id="open-suggestion-btn">
-                            <i class="fas fa-comment-dots"></i>
-                            <span>Sugerencias</span>
-                        </button>
-                        <button class="login-button" id="open-login-btn-desktop">
-                            <i class="fas fa-user-circle"></i>
-                            <span>Iniciar Sesión</span>
-                        </button>
-                    </div>
-                    <div class="cart-btn-wrapper">
-                        <button class="cart-button suggestion-button-mobile" id="open-suggestion-btn-mobile">
-                            <i class="fas fa-comment-dots"></i>
-                        </button>
-                        <button class="cart-button login-button-mobile" id="open-login-btn-mobile">
-                            <i class="fas fa-user-circle"></i>
-                            <span>Acceso</span>
-                        </button>
-                        <button class="cart-button" id="open-cart-btn">
-                            <i class="fas fa-shopping-cart"></i>
-                            <span>Carrito</span>
-                            <span id="cart-count">0</span>
-                        </button>
-                    </div>
-                </div>
-            </nav>
-        `;
-    }
-
     connectedCallback() {
-        // Event listeners para los botones
         const openSuggestionBtn = this.shadowRoot.getElementById('open-suggestion-btn');
         const openSuggestionBtnMobile = this.shadowRoot.getElementById('open-suggestion-btn-mobile');
         const openLoginBtnDesktop = this.shadowRoot.getElementById('open-login-btn-desktop');
@@ -601,6 +453,7 @@ class SidebarComponent extends HTMLElement {
     }
 }
 
+
 // Componente Footer
 class FooterComponent extends HTMLElement {
     constructor() {
@@ -647,7 +500,7 @@ class FooterComponent extends HTMLElement {
                     <p class="tech-info">Desarrollado con HTML, CSS y JavaScript.</p>
                 </div>
             </footer>
-        `;
+        `);
     }
 
     connectedCallback() {
@@ -657,6 +510,7 @@ class FooterComponent extends HTMLElement {
         }
     }
 }
+
 
 // Componente User Modal
 class UserModalComponent extends HTMLElement {
@@ -710,7 +564,7 @@ class UserModalComponent extends HTMLElement {
                     </div>
                 </div>
             </div>
-        `;
+        `, MODAL_SHARED_STYLES);
     }
 
     connectedCallback() {
@@ -773,6 +627,11 @@ class UserModalComponent extends HTMLElement {
     }
 }
 
+// ── ERROR 3 CORREGIDO ──────────────────────────────────────────────────────────
+// SuggestionModalComponent: los argumentos de createComponentTemplate() estaban
+// intercambiados — el HTML era el segundo argumento y MODAL_SHARED_STYLES el
+// primero, cuando debe ser al revés: createComponentTemplate(html, css).
+// ──────────────────────────────────────────────────────────────────────────────
 // Componente Suggestion Modal
 class SuggestionModalComponent extends HTMLElement {
     constructor() {
