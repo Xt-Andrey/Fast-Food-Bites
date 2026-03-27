@@ -1,0 +1,90 @@
+/* components/footer/footer.css */
+/* Estilos específicos del componente de pie de página */
+
+.footer {
+    background: rgba(0, 0, 0, 0.85);
+    color: #ccc;
+    padding: 3rem 2rem 1.5rem;
+    margin-top: 4rem;
+}
+
+/* Columnas del footer */
+.footer-columns-wrapper {
+    max-width: 1200px;
+    margin: 0 auto 2rem;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+}
+
+.footer-column h4 {
+    color: #ff6b35;
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.footer-column ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.footer-column ul li a {
+    color: #aaa;
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: color 0.2s ease;
+}
+
+.footer-column ul li a:hover {
+    color: #ff6b35;
+}
+
+/* Barra inferior */
+.footer-bottom-bar {
+    max-width: 1200px;
+    margin: 0 auto;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    padding-top: 1.5rem;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.75rem;
+    font-size: 0.85rem;
+    color: #888;
+}
+
+.logo-footer {
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: #ff6b35;
+}
+
+.logo-footer strong {
+    color: #fff;
+}
+
+.tech-info {
+    font-size: 0.78rem;
+    color: #666;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .footer-columns-wrapper {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+
+    .footer-bottom-bar {
+        flex-direction: column;
+        text-align: center;
+    }
+}

@@ -1,130 +1,192 @@
-// main.js - Archivo principal de JavaScript para Fast Food Bites con Web Components
+// assets/js/main.js - Orquestador principal de Fast Food Bites
 
-// --- DATOS DEL MENÚ ---
+'use strict';
+
+// ── DATOS ESTÁTICOS DEL MENÚ ─────────────────────────────────────────────────
 const menuItems = [
     { id: 1, name: 'Hamburguesa Clásica Premium', price: 34000.00, image: 'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=600&h=400&fit=crop', description: 'Carne Angus, lechuga fresca, tomate orgánico y nuestra salsa secreta.', badge: 'Popular' },
-    { id: 2, name: 'Papas Fritas Artesanales', price: 12000.00, image: 'https://images.unsplash.com/photo-1573080496219-bb080dd4f877?w=600&h=400&fit=crop', description: 'Papas cortadas a mano, fritas en aceite premium con sal marina.' },
-    { id: 3, name: 'Doble Queso Deluxe', price: 48000.00, image: 'https://images.unsplash.com/photo-1550547660-d9450f859349?w=600&h=400&fit=crop', description: 'Doble carne premium, queso madurado, pepinillos y aderezo especial.', badge: 'Nuevo' },
-    { id: 4, name: 'Malteada Vainilla Bourbon', price: 18000.00, image: 'https://images.unsplash.com/photo-1572490122747-3968b75cc699?w=600&h=400&fit=crop', description: 'Malteada cremosa de vainilla con un toque de sabor a bourbon.' },
-    { id: 5, name: 'Nuggets de Pollo Crujientes ', price: 26000.00, image: 'https://assets.unileversolutions.com/recipes-v3/247909-default.jpg?im=AspectCrop=(625,469);Resize=(625,469)', description: 'Pollo de corral, empanizado en panko japonés. Pídelo con tu salsa favorita.' },
-    { id: 6, name: 'Ensalada Premium con Pollo', price: 38000.00, image: 'https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=600&h=400&fit=crop', description: 'Ensalada fresca con pollo a la parrilla, aderezo cítrico y nueces.', badge: 'Fit' }
+    { id: 2, name: 'Papas Fritas Artesanales',    price: 12000.00, image: 'https://images.unsplash.com/photo-1573080496219-bb080dd4f877?w=600&h=400&fit=crop', description: 'Papas cortadas a mano, fritas en aceite premium con sal marina.' },
+    { id: 3, name: 'Doble Queso Deluxe',          price: 48000.00, image: 'https://images.unsplash.com/photo-1550547660-d9450f859349?w=600&h=400&fit=crop', description: 'Doble carne premium, queso madurado, pepinillos y aderezo especial.', badge: 'Nuevo' },
+    { id: 4, name: 'Malteada Vainilla Bourbon',   price: 18000.00, image: 'https://images.unsplash.com/photo-1572490122747-3968b75cc699?w=600&h=400&fit=crop', description: 'Malteada cremosa de vainilla con un toque de sabor a bourbon.' },
+    { id: 5, name: 'Nuggets de Pollo Crujientes', price: 26000.00, image: 'https://assets.unileversolutions.com/recipes-v3/247909-default.jpg?im=AspectCrop=(625,469);Resize=(625,469)', description: 'Pollo de corral, empanizado en panko japonés. Pídelo con tu salsa favorita.' },
+    { id: 6, name: 'Ensalada Premium con Pollo',  price: 38000.00, image: 'https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=600&h=400&fit=crop', description: 'Ensalada fresca con pollo a la parrilla, aderezo cítrico y nueces.', badge: 'Fit' }
 ];
 
-// --- ESTADO GLOBAL ---
+// ── ESTADO GLOBAL ─────────────────────────────────────────────────────────────
 let cart = [];
 
-// --- CONSTANTES ---
-const productsGrid = document.getElementById('products-grid');
-const overlay = document.getElementById('overlay');
+// ── UTILIDADES ────────────────────────────────────────────────────────────────
+const formatPrice = (price) =>
+    `$${price.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',')}`;
 
-// --- LÓGICA DEL CARRUSEL ---
-const sliderTrack = document.getElementById('slider-track');
-const sliderDots = document.getElementById('slider-dots');
-let currentSlide = 0;
+/**
+ * Carga un fragmento HTML externo e inyecta su contenido en el contenedor indicado.
+ * @param {string} selector - Selector CSS del contenedor destino.
+ * @param {string} url      - Ruta al archivo HTML del fragmento.
+ */
+async function loadFragment(selector, url) {
+    try {
+        const response = await fetch(url);
+        if (!response.ok) throw new Error(`Error cargando: ${url}`);
+        const html = await response.text();
+        const container = document.querySelector(selector);
+        if (container) container.innerHTML = html;
+    } catch (error) {
+        console.error('loadFragment error:', error);
+    }
+}
+
+/**
+ * Inyecta una hoja de estilos en el <head> si todavía no existe.
+ * @param {string} href - Ruta al archivo CSS.
+ */
+function loadStylesheet(href) {
+    if (document.querySelector(`link[href="${href}"]`)) return;
+    const link = document.createElement('link');
+    link.rel  = 'stylesheet';
+    link.href = href;
+    document.head.appendChild(link);
+}
+
+// ── CARGA DE FRAGMENTOS Y CSS DE COMPONENTES ─────────────────────────────────
+async function loadAllFragments() {
+    // CSS propios de cada componente
+    loadStylesheet('components/header/header.css');
+    loadStylesheet('components/sidebar/sidebar.css');
+    loadStylesheet('components/footer/footer.css');
+
+    // Fragmentos HTML
+    await loadFragment('#header-placeholder',  'components/header/header.html');
+    await loadFragment('#sidebar-placeholder', 'components/sidebar/sidebar.html');
+    await loadFragment('#footer-placeholder',  'components/footer/footer.html');
+
+    // Inicializar módulos JS de cada componente (definidos en sus .js)
+    if (typeof initHeader  === 'function') initHeader();
+    if (typeof initSidebar === 'function') initSidebar();
+
+    // Año dinámico en el footer
+    const yearEl = document.getElementById('current-year');
+    if (yearEl) yearEl.textContent = new Date().getFullYear();
+}
+
+// ── CARRUSEL ─────────────────────────────────────────────────────────────────
+let currentSlide  = 0;
 const totalSlides = 2;
 let slideInterval;
 
 function moveToSlide(index) {
     if (index >= totalSlides) index = 0;
     if (index < 0) index = totalSlides - 1;
-
     currentSlide = index;
-    const offset = -index * 50;
-    if (sliderTrack) {
-        sliderTrack.style.transform = `translateX(${offset}%)`;
-    }
-
-    if (sliderDots) {
-        const dots = sliderDots.querySelectorAll('.dot');
-        dots.forEach((dot, i) => {
-            dot.classList.toggle('active', i === currentSlide);
-        });
-    }
+    const sliderTrack = document.getElementById('slider-track');
+    if (sliderTrack) sliderTrack.style.transform = `translateX(${-index * 50}%)`;
+    document.querySelectorAll('#slider-dots .dot')
+        .forEach((dot, i) => dot.classList.toggle('active', i === currentSlide));
 }
 
 function startSlider() {
-    if (sliderTrack) {
-        slideInterval = setInterval(() => {
-            moveToSlide(currentSlide + 1);
-        }, 4000);
+    if (document.getElementById('slider-track')) {
+        slideInterval = setInterval(() => moveToSlide(currentSlide + 1), 4000);
     }
 }
 
-function handleDotClick(e) {
-    if (e.target.classList.contains('dot')) {
-        clearInterval(slideInterval);
-        const slideIndex = parseInt(e.target.dataset.slide);
-        moveToSlide(slideIndex);
-        startSlider();
-    }
-}
-
-// --- UTILIDADES ---
+// ── PARTÍCULAS DEL HERO ───────────────────────────────────────────────────────
 function createParticles() {
     const heroParticles = document.querySelector('.hero-particles');
-    for(let i = 0; i < 30; i++) {
-        const particle = document.createElement('div');
-        particle.className = 'particle';
-        particle.style.left = Math.random() * 100 + '%';
-        particle.style.top = Math.random() * 100 + '%';
-        particle.style.animationDelay = Math.random() * 5 + 's';
-        particle.style.animationDuration = (Math.random() * 10 + 10) + 's';
-        heroParticles.appendChild(particle);
+    if (!heroParticles) return;
+    for (let i = 0; i < 30; i++) {
+        const p = document.createElement('div');
+        p.className = 'particle';
+        p.style.cssText = `
+            left: ${Math.random() * 100}%;
+            top: ${Math.random() * 100}%;
+            animation-delay: ${Math.random() * 5}s;
+            animation-duration: ${Math.random() * 10 + 10}s;
+        `;
+        heroParticles.appendChild(p);
     }
 }
 
-const formatPrice = (price) => `$${price.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",")}`;
+// ── FETCH + RENDERIZADO DE PRODUCTOS CON <template> ───────────────────────────
+async function fetchProducts() {
+    try {
+        const response = await fetch('data/productos.json');
+        if (!response.ok) throw new Error('Error cargando productos.json');
+        await response.json(); // datos del JSON disponibles para extender
+        return menuItems;      // usamos menuItems que ya tienen imágenes y badges
+    } catch (err) {
+        console.warn('Usando datos estáticos (fetch falló):', err);
+        return menuItems;
+    }
+}
 
-// --- LÓGICA DEL MENÚ ---
-function renderMenu() {
+function renderMenu(products) {
+    const productsGrid    = document.getElementById('products-grid');
+    const productTemplate = document.getElementById('product-template');
+    if (!productsGrid || !productTemplate) return;
+
     productsGrid.innerHTML = '';
-    menuItems.forEach(item => {
-        const card = document.createElement('div');
-        card.className = 'product-card';
-        card.innerHTML = `
-            <div class="product-image-wrapper">
-                <img src="${item.image}" alt="${item.name}" loading="lazy">
-                ${item.badge ? `<div class="product-badge">${item.badge}</div>` : ''}
-                <div class="product-glow"></div>
-            </div>
-            <div class="product-info">
-                <h3 class="product-name">${item.name}</h3>
-                <p class="product-description">${item.description}</p>
-                <div class="product-footer">
-                    <div class="product-price">${formatPrice(item.price)}</div>
-                    <button class="add-to-cart-btn" data-id="${item.id}">
-                        <span>Añadir</span>
-                        <i class="fas fa-plus"></i>
-                    </button>
-                </div>
-            </div>
-        `;
-        productsGrid.appendChild(card);
+
+    products.forEach(item => {
+        const clone = productTemplate.content.cloneNode(true);
+
+        const img         = clone.querySelector('.product-img');
+        const badge       = clone.querySelector('.product-badge');
+        const name        = clone.querySelector('.product-name');
+        const description = clone.querySelector('.product-description');
+        const price       = clone.querySelector('.product-price');
+        const addBtn      = clone.querySelector('.add-to-cart-btn');
+
+        if (img)         { img.src = item.image; img.alt = item.name; }
+        if (badge)       { badge.textContent = item.badge || ''; badge.style.display = item.badge ? '' : 'none'; }
+        if (name)        name.textContent = item.name;
+        if (description) description.textContent = item.description;
+        if (price)       price.textContent = formatPrice(item.price);
+        if (addBtn)      addBtn.dataset.id = item.id;
+
+        productsGrid.appendChild(clone);
     });
 }
 
-// --- LÓGICA DEL CARRITO ---
+// ── LÓGICA DEL CARRITO ────────────────────────────────────────────────────────
+function addToCart(productId) {
+    const product      = menuItems.find(item => item.id === productId);
+    const existingItem = cart.find(item => item.id === productId);
+    if (!product) return;
+    if (existingItem) existingItem.quantity++;
+    else cart.push({ ...product, quantity: 1 });
+    renderCart();
+}
+
+function removeItem(productId) {
+    cart = cart.filter(item => item.id !== productId);
+    renderCart();
+}
+
+function changeQuantity(productId, type) {
+    const item = cart.find(i => i.id === productId);
+    if (!item) return;
+    if (type === 'increase') item.quantity++;
+    else if (type === 'decrease') { item.quantity--; if (item.quantity <= 0) { removeItem(productId); return; } }
+    renderCart();
+}
+
 function renderCart() {
-    const sidebar = document.querySelector('sidebar-component');
-    if (!sidebar) return;
-
-    const cartItemsList = sidebar.shadowRoot.getElementById('cart-items-list');
+    const cartItemsList = document.getElementById('cart-items-list');
     if (!cartItemsList) return;
-
-    cartItemsList.innerHTML = '';
 
     if (cart.length === 0) {
         cartItemsList.innerHTML = `
             <div class="empty-cart-message">
                 <i class="fas fa-shopping-cart"></i>
                 <p>Tu carrito está vacío</p>
-            </div>
-        `;
+            </div>`;
     } else {
+        cartItemsList.innerHTML = '';
         cart.forEach(item => {
-            const listItem = document.createElement('div');
-            listItem.className = 'cart-item';
-            listItem.innerHTML = `
+            const div = document.createElement('div');
+            div.className = 'cart-item';
+            div.innerHTML = `
                 <div class="item-details">
                     <h4>${item.name}</h4>
                     <span>${formatPrice(item.price)} × ${item.quantity}</span>
@@ -136,252 +198,139 @@ function renderCart() {
                 </div>
                 <button class="remove-item-btn" data-id="${item.id}">
                     <i class="fas fa-trash"></i>
-                </button>
-            `;
-            cartItemsList.appendChild(listItem);
+                </button>`;
+            cartItemsList.appendChild(div);
         });
     }
 
     updateCartTotals();
 }
 
-function addToCart(productId) {
-    const product = menuItems.find(item => item.id === productId);
-    const existingItem = cart.find(item => item.id === productId);
-
-    if (existingItem) {
-        existingItem.quantity++;
-    } else {
-        cart.push({ ...product, quantity: 1 });
-    }
-
-    renderCart();
-    updateCartCount();
-}
-
-function removeItem(productId) {
-    cart = cart.filter(item => item.id !== productId);
-    renderCart();
-}
-
-function changeQuantity(productId, type) {
-    const item = cart.find(i => i.id === productId);
-    if (!item) return;
-
-    if (type === 'increase') {
-        item.quantity++;
-    } else if (type === 'decrease') {
-        item.quantity--;
-        if (item.quantity <= 0) {
-            removeItem(productId);
-            return;
-        }
-    }
-    renderCart();
-}
-
 function updateCartTotals() {
-    const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-    const shipping = cart.length > 0 ? 9000.00 : 0.00;
-    const total = subtotal + shipping;
-    const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+    const subtotal   = cart.reduce((s, i) => s + i.price * i.quantity, 0);
+    const shipping   = cart.length > 0 ? 9000 : 0;
+    const total      = subtotal + shipping;
+    const totalItems = cart.reduce((s, i) => s + i.quantity, 0);
 
-    const sidebar = document.querySelector('sidebar-component');
-    if (sidebar) {
-        const cartSubtotal = sidebar.shadowRoot.getElementById('cart-subtotal');
-        const cartShipping = sidebar.shadowRoot.getElementById('cart-shipping-price');
-        const cartTotal = sidebar.shadowRoot.getElementById('cart-total');
-
-        if (cartSubtotal) cartSubtotal.textContent = formatPrice(subtotal);
-        if (cartShipping) cartShipping.textContent = formatPrice(shipping);
-        if (cartTotal) cartTotal.textContent = formatPrice(total);
-    }
-
-    updateCartCount();
+    if (typeof updateSidebarTotals   === 'function') updateSidebarTotals(subtotal, shipping, total);
+    if (typeof updateHeaderCartCount === 'function') updateHeaderCartCount(totalItems);
 }
 
-function updateCartCount() {
-    const header = document.querySelector('header-component');
-    if (header) {
-        const cartCount = header.shadowRoot.getElementById('cart-count');
-        if (cartCount) {
-            const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
-            cartCount.textContent = totalItems;
-        }
-    }
-}
+// ── MODALES ───────────────────────────────────────────────────────────────────
+function openCart()           { if (typeof openSidebar  === 'function') openSidebar(); }
+function closeCart()          { if (typeof closeSidebar === 'function') closeSidebar(); }
 
-// --- LÓGICA DE PROMOCIONES ---
+function openUserModal() {
+    const m = document.querySelector('user-modal-component');
+    const o = document.getElementById('overlay');
+    if (m) m.open();
+    if (o) o.classList.add('visible');
+    document.body.style.overflow = 'hidden';
+}
+function closeUserModal() {
+    const m = document.querySelector('user-modal-component');
+    const o = document.getElementById('overlay');
+    if (m) m.close();
+    if (o) o.classList.remove('visible');
+    document.body.style.overflow = 'auto';
+}
+function openSuggestionModal() {
+    const m = document.querySelector('suggestion-modal-component');
+    const o = document.getElementById('overlay');
+    if (m) m.open();
+    if (o) o.classList.add('visible');
+    document.body.style.overflow = 'hidden';
+}
+function closeSuggestionModal() {
+    const m = document.querySelector('suggestion-modal-component');
+    const o = document.getElementById('overlay');
+    if (m) m.close();
+    if (o) o.classList.remove('visible');
+    document.body.style.overflow = 'auto';
+}
+function closeAllModals() { closeCart(); closeUserModal(); closeSuggestionModal(); }
+
+// ── PROMOCIONES ───────────────────────────────────────────────────────────────
 function handlePromoClick(e) {
     const btn = e.target.closest('.promo-btn');
     if (!btn) return;
-
     const promoId = parseInt(btn.dataset.promoId);
-
     if (btn.textContent.includes('Ver Oferta')) {
-        if (promoId === 1) {
-            alert('Detalle de la Promoción:\n\n🍔 Doble Martes de Burger\n\n¡Compra una Hamburguesa Clásica Premium, la segunda a mitad de precio! Aplicable a la de menor valor. Exclusivo para pedidos online. ¡Aprovecha la oferta!');
-        } else if (promoId === 2) {
-            alert('Detalle de la Promoción:\n\n🍟 Combo Familiar Deluxe\n\nIncluye: 4 Hamburguesas Clásicas Premium, 1 Porción de Papas Fritas Artesanales (tamaño familiar) y 2 Malteadas Vainilla Bourbon. Precio total: $145,000. ¡Disfruta en familia!');
-        }
-    } else if (btn.textContent.includes('Pedir Ahora')) {
-        if (promoId === 2) {
-            addToCart(1);
-            addToCart(1);
-            addToCart(1);
-            addToCart(1);
-            addToCart(2);
-            addToCart(4);
-            addToCart(4);
-            alert('✅ Combo Familiar Deluxe agregado al carrito. ¡A disfrutar!');
-            openCart();
-        }
+        if (promoId === 1) alert('🍔 Doble Martes de Burger\n\nCompra una Hamburguesa, la segunda a mitad de precio. ¡Exclusivo online!');
+        if (promoId === 2) alert('🍟 Combo Familiar Deluxe\n\n4 Hamburguesas + Papas familiares + 2 Malteadas. Precio: $145,000.');
+    } else if (btn.textContent.includes('Pedir Ahora') && promoId === 2) {
+        [1, 1, 1, 1, 2, 4, 4].forEach(id => addToCart(id));
+        alert('✅ Combo Familiar Deluxe agregado al carrito. ¡A disfrutar!');
+        openCart();
     }
 }
 
-// --- INICIALIZACIÓN ---
-document.addEventListener('DOMContentLoaded', function() {
-    console.log('Fast Food Bites - Inicializando aplicación...');
+// ── CUSTOM EVENTS (comunicación entre módulos de componentes) ─────────────────
+function setupCustomEventListeners() {
+    document.addEventListener('app:open-cart',             () => openCart());
+    document.addEventListener('app:close-cart',            () => closeCart());
+    document.addEventListener('app:open-user-modal',       () => openUserModal());
+    document.addEventListener('app:open-suggestion-modal', () => openSuggestionModal());
+    document.addEventListener('app:checkout',              () => handleCheckout());
+    document.addEventListener('app:remove-cart-item',      (e) => removeItem(e.detail.productId));
+    document.addEventListener('app:change-quantity',       (e) => changeQuantity(e.detail.productId, e.detail.type));
+}
 
-    // Inicializar componentes
+function handleCheckout() {
+    if (cart.length > 0) {
+        const total = cart.reduce((s, i) => s + i.price * i.quantity, 0) + 9000;
+        alert(`🎉 ¡Pedido confirmado!\n\nTotal: ${formatPrice(total)}\n\n✨ Gracias por elegir Fast Food Bites!`);
+        cart = [];
+        renderCart();
+        closeCart();
+    } else {
+        alert('Tu carrito está vacío. ¡Explora nuestro menú exclusivo!');
+    }
+}
+
+// ── INICIALIZACIÓN ────────────────────────────────────────────────────────────
+document.addEventListener('DOMContentLoaded', async () => {
+    console.log('Fast Food Bites — Inicializando...');
+
+    setupCustomEventListeners();
+    await loadAllFragments();
     createParticles();
     startSlider();
-    renderMenu();
 
-    // Event listeners
-    setupEventListeners();
+    const products = await fetchProducts();
+    renderMenu(products);
+    renderCart();
 
-    console.log('Aplicación inicializada correctamente.');
-});
-
-// --- CONFIGURACIÓN DE EVENT LISTENERS ---
-function setupEventListeners() {
-    // Dots del slider
+    // Dots del carrusel
+    const sliderDots = document.getElementById('slider-dots');
     if (sliderDots) {
-        sliderDots.addEventListener('click', handleDotClick);
+        sliderDots.addEventListener('click', (e) => {
+            if (e.target.classList.contains('dot')) {
+                clearInterval(slideInterval);
+                moveToSlide(parseInt(e.target.dataset.slide));
+                startSlider();
+            }
+        });
     }
 
     // Overlay
-    if (overlay) {
-        overlay.addEventListener('click', closeAllModals);
-    }
+    const overlay = document.getElementById('overlay');
+    if (overlay) overlay.addEventListener('click', closeAllModals);
 
-    // Productos
+    // Grilla de productos
+    const productsGrid = document.getElementById('products-grid');
     if (productsGrid) {
         productsGrid.addEventListener('click', (e) => {
             const btn = e.target.closest('.add-to-cart-btn');
             if (!btn) return;
-
-            const productId = parseInt(btn.dataset.id);
-            if (Number.isNaN(productId)) return;
-
-            addToCart(productId);
+            const id = parseInt(btn.dataset.id);
+            if (!Number.isNaN(id)) addToCart(id);
         });
     }
 
-    // Promociones
-    const promoButtons = document.querySelectorAll('.promo-btn');
-    promoButtons.forEach(btn => {
-        btn.addEventListener('click', handlePromoClick);
-    });
+    // Slider de promociones
+    const promotionsSlider = document.querySelector('.promotions-slider');
+    if (promotionsSlider) promotionsSlider.addEventListener('click', handlePromoClick);
 
-    // Componentes
-    const header = document.querySelector('header-component');
-    const sidebar = document.querySelector('sidebar-component');
-    const userModal = document.querySelector('user-modal-component');
-    const suggestionModal = document.querySelector('suggestion-modal-component');
-
-    if (header) {
-        header.addEventListener('open-suggestion-modal', () => openSuggestionModal());
-        header.addEventListener('open-user-modal', () => openUserModal());
-        header.addEventListener('open-cart', () => openCart());
-    }
-
-    if (sidebar) {
-        sidebar.addEventListener('close-cart', () => closeCart());
-        sidebar.addEventListener('checkout', () => alert('Funcionalidad de checkout en desarrollo'));
-    }
-
-    if (userModal) {
-        userModal.addEventListener('close-user-modal', () => closeUserModal());
-    }
-
-    if (suggestionModal) {
-        suggestionModal.addEventListener('close-suggestion-modal', () => closeSuggestionModal());
-    }
-
-    // Delegación para carrito
-    document.addEventListener('click', (e) => {
-        if (e.target.classList.contains('decrease-quantity')) {
-            const productId = parseInt(e.target.dataset.id);
-            changeQuantity(productId, 'decrease');
-        } else if (e.target.classList.contains('increase-quantity')) {
-            const productId = parseInt(e.target.dataset.id);
-            changeQuantity(productId, 'increase');
-        } else if (e.target.classList.contains('remove-item-btn')) {
-            const productId = parseInt(e.target.dataset.id);
-            removeItem(productId);
-        }
-    });
-}
-
-// --- FUNCIONES DE MODALES ---
-function openCart() {
-    const sidebar = document.querySelector('sidebar-component');
-    if (sidebar) {
-        sidebar.shadowRoot.getElementById('cart-sidebar').classList.add('open');
-        overlay.classList.add('visible');
-        document.body.style.overflow = 'hidden';
-    }
-}
-
-function closeCart() {
-    const sidebar = document.querySelector('sidebar-component');
-    if (sidebar) {
-        sidebar.shadowRoot.getElementById('cart-sidebar').classList.remove('open');
-        overlay.classList.remove('visible');
-        document.body.style.overflow = 'auto';
-    }
-}
-
-function openUserModal() {
-    const userModal = document.querySelector('user-modal-component');
-    if (userModal) {
-        userModal.open();
-        overlay.classList.add('visible');
-        document.body.style.overflow = 'hidden';
-    }
-}
-
-function closeUserModal() {
-    const userModal = document.querySelector('user-modal-component');
-    if (userModal) {
-        userModal.close();
-        overlay.classList.remove('visible');
-        document.body.style.overflow = 'auto';
-    }
-}
-
-function openSuggestionModal() {
-    const suggestionModal = document.querySelector('suggestion-modal-component');
-    if (suggestionModal) {
-        suggestionModal.open();
-        overlay.classList.add('visible');
-        document.body.style.overflow = 'hidden';
-    }
-}
-
-function closeSuggestionModal() {
-    const suggestionModal = document.querySelector('suggestion-modal-component');
-    if (suggestionModal) {
-        suggestionModal.close();
-        overlay.classList.remove('visible');
-        document.body.style.overflow = 'auto';
-    }
-}
-
-function closeAllModals() {
-    closeCart();
-    closeUserModal();
-    closeSuggestionModal();
-}
+    console.log('Aplicación lista ✅');
+});
