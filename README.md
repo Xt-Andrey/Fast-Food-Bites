@@ -121,4 +121,3 @@ El repositorio debe evidenciar trabajo en equipo mediante:
 - **HTML5** — Estructura semántica, elemento `<template>`, Custom Elements
 - **CSS3** — Flexbox, Grid, animaciones, variables CSS, diseño responsivo
 - **JavaScript (ES6+)** — Módulos, async/await, fetch API, Shadow DOM, CustomEvents
-

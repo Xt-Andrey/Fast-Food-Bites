@@ -4,24 +4,28 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Fast Food Bites - Premium Experience</title>
-    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    
     <link rel="stylesheet" href="assets/css/style.css">
+    <!-- Los CSS de header/sidebar/footer se inyectan dinámicamente desde main.js -->
 </head>
 <body>
+
+    <!-- Botón flotante WhatsApp -->
     <a href="https://wa.me/573102402810" target="_blank" class="whatsapp-float" aria-label="Contáctanos por WhatsApp">
         <i class="fab fa-whatsapp"></i>
     </a>
 
-    <header-component></header-component>
+    <!-- FRAGMENTO HEADER: main.js carga components/header/header.html aquí -->
+    <div id="header-placeholder"></div>
 
+    <!-- HERO -->
     <section class="hero">
         <div class="hero-particles"></div>
         <h1 class="hero-title">Sabor Premium<br/>a tu Alcance</h1>
         <p class="hero-subtitle">Experimenta la mejor comida rápida con ingredientes selectos y un servicio excepcional</p>
     </section>
 
+    <!-- CARRUSEL DE PROMOCIONES -->
     <section class="promotions-slider">
         <div class="slider-track" id="slider-track">
             <div class="slide promo-1">
@@ -33,7 +37,7 @@
             </div>
             <div class="slide promo-2">
                 <div class="promo-text">
-                    <h3> Combo Familiar Deluxe</h3>
+                    <h3>🍟 Combo Familiar Deluxe</h3>
                     <p>4 Menús, papas grandes y 2 malteadas por solo $193,000.00</p>
                 </div>
                 <button class="promo-btn" data-promo-id="2">¡Pedir Ahora!</button>
@@ -45,46 +49,79 @@
         </div>
     </section>
 
+    <!-- SECCIÓN DE PRODUCTOS -->
     <section class="products-section">
         <div class="section-header">
             <h2 class="section-title">Nuestro Menú Exclusivo</h2>
         </div>
-        <div class="products-grid" id="products-grid">
-        </div>
+
+        <!--
+            PLANTILLA DE PRODUCTO: requerimiento <template>
+            JavaScript clona esta estructura para cada producto del menú.
+        -->
+        <template id="product-template">
+            <div class="product-card">
+                <div class="product-image-wrapper">
+                    <img class="product-img" src="" alt="" loading="lazy">
+                    <div class="product-badge"></div>
+                    <div class="product-glow"></div>
+                </div>
+                <div class="product-info">
+                    <h3 class="product-name"></h3>
+                    <p class="product-description"></p>
+                    <div class="product-footer">
+                        <div class="product-price"></div>
+                        <button class="add-to-cart-btn" data-id="">
+                            <span>Añadir</span>
+                            <i class="fas fa-plus"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </template>
+
+        <div class="products-grid" id="products-grid"></div>
     </section>
-    
+
+    <!-- SECCIÓN DE INFORMACIÓN / CONTACTO -->
     <section class="info-section" id="contact-us">
         <div class="info-content-wrapper">
             <div class="info-card" id="about-us">
                 <h2 class="section-title">Acerca de Nosotros</h2>
-                <p>Somos **Fast Food Bites**, una experiencia gastronómica que combina la velocidad de la comida rápida con la calidad de los ingredientes *premium*. Nuestro compromiso es ofrecer sabores inigualables y un servicio excepcional, todo en una plataforma digital moderna y fluida.</p>
+                <p>Somos <strong>Fast Food Bites</strong>, una experiencia gastronómica que combina la velocidad de la comida rápida con la calidad de los ingredientes <em>premium</em>. Nuestro compromiso es ofrecer sabores inigualables y un servicio excepcional en una plataforma digital moderna.</p>
                 <p>Nuestra misión es redefinir la comida rápida.</p>
 
                 <h2 class="section-title contact-title">Contáctanos</h2>
                 <div class="contact-details">
-                    <p><i class="fas fa-phone-alt"></i> Teléfono: +57 310 240 2810 </p>
+                    <p><i class="fas fa-phone-alt"></i> Teléfono: +57 310 240 2810</p>
                     <p><i class="fas fa-envelope"></i> Email: <a href="mailto:andreygalvis6002@gmail.com">andreygalvis6002@gmail.com</a></p>
-                    <p><i class="fas fa-map-marker-alt"></i> Dirección: Cra 5 # 10-20, Ciudad Ocaña, NS - Colombia</p>
+                    <p><i class="fas fa-map-marker-alt"></i> Dirección: Cra 5 # 10-20, Ocaña, NS - Colombia</p>
                 </div>
                 <div class="social-icons">
-                    <a href="https://facebook.com/tumarca" target="_blank" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
-                    <a href="https://instagram.com/tumarca" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-                    <a href="https://twitter.com/tumarca" target="_blank" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                    <a href="https://facebook.com" target="_blank" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                    <a href="https://instagram.com" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="https://twitter.com"   target="_blank" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
                 </div>
             </div>
-
-            </div>
+        </div>
     </section>
 
-    <sidebar-component></sidebar-component>
-    
+    <!-- FRAGMENTO SIDEBAR: main.js carga components/sidebar/sidebar.html aquí -->
+    <div id="sidebar-placeholder"></div>
+
+    <!-- Web Components con Shadow DOM (definidos en assets/js/components.js) -->
     <user-modal-component></user-modal-component>
-    
     <suggestion-modal-component></suggestion-modal-component>
+
+    <!-- Overlay para modales -->
     <div class="overlay" id="overlay"></div>
 
-    <footer-component></footer-component>
+    <!-- FRAGMENTO FOOTER: main.js carga components/footer/footer.html aquí -->
+    <div id="footer-placeholder"></div>
 
+    <!-- SCRIPTS: JS de cada componente primero, luego el orquestador -->
+    <script src="components/header/header.js"></script>
+    <script src="components/sidebar/sidebar.js"></script>
     <script src="assets/js/components.js"></script>
     <script src="assets/js/main.js"></script>
 </body>
