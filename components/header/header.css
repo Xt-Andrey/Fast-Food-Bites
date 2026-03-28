@@ -1,129 +1,161 @@
-/* components/header/header.css */
-/* Estilos específicos del componente de encabezado (navbar) */
-
-nav.navbar {
+.site-header {
     position: fixed;
     top: 0;
     left: 0;
     right: 0;
+    height: var(--header-height);
+    background-color: var(--color-black);
     z-index: 1000;
-    background: rgba(255, 255, 255, 0.95);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-    padding: 1rem 0;
-    transition: all 0.3s ease;
+    box-shadow: 0 2px 20px rgba(0, 0, 0, 0.3);
 }
 
-.navbar-glass {
-    max-width: 1200px;
+.header-container {
+    max-width: 1400px;
     margin: 0 auto;
+    height: 100%;
     display: flex;
-    justify-content: space-between;
     align-items: center;
+    justify-content: space-between;
     padding: 0 2rem;
+    gap: 1.5rem;
 }
 
 /* Logo */
-.logo {
+.header-logo {
     display: flex;
     align-items: center;
-    gap: 0.5rem;
-    font-size: 1.5rem;
-    font-weight: bold;
-    color: #ff6b35;
+    gap: 0.6rem;
     text-decoration: none;
+    flex-shrink: 0;
 }
 
-.logo-icon {
-    color: #ff6b35;
+.logo-text {
+    display: flex;
+    flex-direction: column;
+    line-height: 1;
 }
 
-/* Links de navegación */
-.nav-links {
+.logo-brand {
+    font-family: var(--font-body);
+    font-size: 0.65rem;
+    font-weight: 300;
+    color: rgba(255, 255, 255, 0.6);
+    text-transform: uppercase;
+    letter-spacing: 3px;
+}
+
+.logo-sub {
+    font-family: var(--font-display);
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--color-primary);
+    letter-spacing: 2px;
+}
+
+/* Navegacion */
+.header-nav {
     display: flex;
     gap: 2rem;
     align-items: center;
 }
 
-.nav-links a {
+.nav-link {
+    color: rgba(255, 255, 255, 0.75);
     text-decoration: none;
-    color: #333;
     font-weight: 500;
-    transition: color 0.3s ease;
+    font-size: 0.9rem;
+    letter-spacing: 0.5px;
+    transition: color var(--transition);
+    position: relative;
+    padding-bottom: 4px;
 }
 
-.nav-links a:hover {
-    color: #ff6b35;
+.nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background-color: var(--color-primary);
+    transition: width var(--transition);
 }
 
-/* Botones de sugerencias y login */
-.suggestion-button,
-.login-button {
+.nav-link:hover,
+.nav-link.active {
+    color: var(--color-white);
+}
+
+.nav-link:hover::after,
+.nav-link.active::after {
+    width: 100%;
+}
+
+/* Acciones */
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.cart-btn {
     background: none;
     border: none;
     cursor: pointer;
+    position: relative;
+    padding: 0.25rem;
+    color: rgba(255, 255, 255, 0.85);
+    transition: transform var(--transition), color var(--transition);
     display: flex;
     align-items: center;
-    gap: 0.5rem;
-    color: #333;
-    font-weight: 500;
-    font-size: 1rem;
-    transition: color 0.3s ease;
 }
 
-.suggestion-button:hover,
-.login-button:hover {
-    color: #ff6b35;
+.cart-btn:hover {
+    transform: scale(1.1);
+    color: var(--color-primary);
 }
 
-/* Wrapper del carrito */
-.cart-btn-wrapper {
+.cart-badge {
+    position: absolute;
+    top: -6px;
+    right: -8px;
+    background-color: var(--color-primary);
+    color: var(--color-white);
+    font-family: var(--font-body);
+    font-size: 0.65rem;
+    font-weight: 700;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
     display: flex;
-    gap: 1rem;
     align-items: center;
+    justify-content: center;
+    line-height: 1;
 }
 
-/* Botón carrito */
-.cart-button {
-    background: #ff6b35;
-    color: white;
-    border: none;
-    padding: 0.5rem 1rem;
-    border-radius: 25px;
+.logout-btn {
+    background: transparent;
+    border: 1.5px solid rgba(255, 255, 255, 0.3);
+    color: rgba(255, 255, 255, 0.75);
+    padding: 0.4rem 1rem;
+    border-radius: 50px;
+    font-family: var(--font-body);
+    font-size: 0.8rem;
     cursor: pointer;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    font-weight: 500;
-    font-size: 0.9rem;
-    transition: all 0.3s ease;
+    transition: all var(--transition);
 }
 
-.cart-button:hover {
-    background: #e55a2b;
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(255, 107, 53, 0.4);
+.logout-btn:hover {
+    border-color: var(--color-primary);
+    color: var(--color-primary);
 }
 
-/* Botones mobile (ocultos por defecto en desktop) */
-.suggestion-button-mobile,
-.login-button-mobile {
-    display: none;
-}
-
-/* Responsive */
-@media (max-width: 768px) {
-    .nav-links {
+@media (max-width: 600px) {
+    .header-nav {
         display: none;
     }
 
-    .suggestion-button-mobile,
-    .login-button-mobile {
-        display: flex;
-    }
-
-    .navbar-glass {
+    .header-container {
         padding: 0 1rem;
     }
 }

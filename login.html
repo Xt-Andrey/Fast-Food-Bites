@@ -3,321 +3,66 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Iniciar Sesión - Fast Food Bites</title>
+    <title>Login — Fast Food Bites</title>
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <!-- CSS -->
     <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/login.css"> 
 </head>
-<body class="login-page">
-    <!-- Partículas de fondo animadas -->
-    <div class="login-particles">
-        <div class="particle particle-1"></div>
-        <div class="particle particle-2"></div>
-        <div class="particle particle-3"></div>
-        <div class="particle particle-4"></div>
-        <div class="particle particle-5"></div>
-    </div>
 
-    <!-- Contenedor principal -->
-    <div class="login-wrapper">
-        <!-- Panel izquierdo - Branding -->
-        <div class="login-branding">
-            <div class="brand-content">
-                <div class="logo-large">
-                    <div class="logo-icon-large">
-                        <i class="fas fa-fire-flame-curved"></i>
-                    </div>
-                    <div class="logo-text">
-                        <span>Fast Food</span>
-                        <strong>Bites</strong>
-                    </div>
-                </div>
+<body>
 
-                <h2 class="brand-title">¡Bienvenido de vuelta!</h2>
-                <p class="brand-subtitle">Disfruta de la mejor comida rápida con un toque premium</p>
+<div class="login-wrapper">
 
-                <div class="brand-features">
-                    <div class="feature-item">
-                        <i class="fas fa-shipping-fast"></i>
-                        <span>Entrega rápida</span>
-                    </div>
-                    <div class="feature-item">
-                        <i class="fas fa-star"></i>
-                        <span>Calidad premium</span>
-                    </div>
-                    <div class="feature-item">
-                        <i class="fas fa-clock"></i>
-                        <span>Servicio 24/7</span>
-                    </div>
-                </div>
+    <!-- Panel izquierdo -->
+    <div class="login-brand-panel">
+        <h1 class="brand-title">Fast Food<br>Bites</h1>
+        <p class="brand-subtitle">Comida rápida</p>
 
-                <div class="brand-quote">
-                    <blockquote>
-                        "La mejor experiencia gastronómica digital"
-                    </blockquote>
-                    <cite>- Fast Food Bites</cite>
-                </div>
-            </div>
-        </div>
-
-        <!-- Panel derecho - Formularios -->
-        <div class="login-forms">
-            <div class="login-intro">
-                <div class="intro-content">
-                    <h3>¡Vamos a comenzar!</h3>
-                    <p>Inicia sesión para acceder a tu carrito, historial de pedidos y ofertas exclusivas.</p>
-                    <button id="open-login-btn" class="submit-btn">Iniciar Sesión</button>
-                    <p class="intro-note">¿Aún no tienes cuenta? Regístrate en el siguiente formulario una vez inicies sesión.</p>
-                </div>
-            </div>
-
-            <div class="form-container" id="login-form-container">
-                <!-- Header con navegación -->
-                <div class="form-header">
-                    <button class="tab-btn active" data-tab="login">
-                        <i class="fas fa-sign-in-alt"></i>
-                        Iniciar Sesión
-                    </button>
-                    <button class="tab-btn" data-tab="register">
-                        <i class="fas fa-user-plus"></i>
-                        Registrarme
-                    </button>
-                </div>
-
-                <!-- Formulario de Login -->
-                <div class="form-content active" id="login-form">
-                    <div class="form-title">
-                        <h3>Accede a tu cuenta</h3>
-                        <p>Ingresa tus credenciales para continuar</p>
-                    </div>
-
-                    <form class="auth-form" id="loginForm">
-                        <div class="input-group">
-                            <label for="login-email">
-                                <i class="fas fa-envelope"></i>
-                                Correo electrónico
-                            </label>
-                            <input
-                                type="email"
-                                id="login-email"
-                                name="email"
-                                required
-                                placeholder="tu.email@ejemplo.com"
-                                autocomplete="email"
-                            >
-                            <div class="input-feedback"></div>
-                        </div>
-
-                        <div class="input-group">
-                            <label for="login-password">
-                                <i class="fas fa-lock"></i>
-                                Contraseña
-                            </label>
-                            <div class="password-input">
-                                <input
-                                    type="password"
-                                    id="login-password"
-                                    name="password"
-                                    required
-                                    placeholder="Ingresa tu contraseña"
-                                    autocomplete="current-password"
-                                >
-                                <button type="button" class="toggle-password" data-target="login-password">
-                                    <i class="fas fa-eye"></i>
-                                </button>
-                            </div>
-                            <div class="input-feedback"></div>
-                        </div>
-
-                        <div class="form-options">
-                            <label class="checkbox-label">
-                                <input type="checkbox" id="remember-me">
-                                <span class="checkmark"></span>
-                                Recordarme
-                            </label>
-                            <a href="#" class="forgot-link">¿Olvidaste tu contraseña?</a>
-                        </div>
-
-                        <button type="submit" class="submit-btn">
-                            <span class="btn-text">Iniciar Sesión</span>
-                            <div class="btn-loader" style="display: none;">
-                                <i class="fas fa-spinner fa-spin"></i>
-                            </div>
-                        </button>
-                    </form>
-
-                    <div class="divider">
-                        <span>o</span>
-                    </div>
-
-                    <div class="social-login">
-                        <button class="social-btn google-btn" data-provider="google">
-                            <i class="fab fa-google"></i>
-                            Continuar con Google
-                        </button>
-                        <button class="social-btn facebook-btn" data-provider="facebook">
-                            <i class="fab fa-facebook-f"></i>
-                            Continuar con Facebook
-                        </button>
-                    </div>
-                </div>
-
-                <!-- Formulario de Registro -->
-                <div class="form-content" id="register-form">
-                    <div class="form-title">
-                        <h3>Crea tu cuenta</h3>
-                        <p>Únete a la comunidad de Fast Food Bites</p>
-                    </div>
-
-                    <form class="auth-form" id="registerForm">
-                        <div class="input-row">
-                            <div class="input-group">
-                                <label for="register-name">
-                                    <i class="fas fa-user"></i>
-                                    Nombre completo
-                                </label>
-                                <input
-                                    type="text"
-                                    id="register-name"
-                                    name="name"
-                                    required
-                                    placeholder="Tu nombre y apellido"
-                                    autocomplete="name"
-                                >
-                                <div class="input-feedback"></div>
-                            </div>
-
-                            <div class="input-group">
-                                <label for="register-phone">
-                                    <i class="fas fa-phone"></i>
-                                    Teléfono
-                                </label>
-                                <input
-                                    type="tel"
-                                    id="register-phone"
-                                    name="phone"
-                                    placeholder="+57 300 123 4567"
-                                    autocomplete="tel"
-                                >
-                                <div class="input-feedback"></div>
-                            </div>
-                        </div>
-
-                        <div class="input-group">
-                            <label for="register-email">
-                                <i class="fas fa-envelope"></i>
-                                Correo electrónico
-                            </label>
-                            <input
-                                type="email"
-                                id="register-email"
-                                name="email"
-                                required
-                                placeholder="tu.email@ejemplo.com"
-                                autocomplete="email"
-                            >
-                            <div class="input-feedback"></div>
-                        </div>
-
-                        <div class="input-row">
-                            <div class="input-group">
-                                <label for="register-password">
-                                    <i class="fas fa-lock"></i>
-                                    Contraseña
-                                </label>
-                                <div class="password-input">
-                                    <input
-                                        type="password"
-                                        id="register-password"
-                                        name="password"
-                                        required
-                                        placeholder="Mínimo 6 caracteres"
-                                        autocomplete="new-password"
-                                    >
-                                    <button type="button" class="toggle-password" data-target="register-password">
-                                        <i class="fas fa-eye"></i>
-                                    </button>
-                                </div>
-                                <div class="input-feedback"></div>
-                            </div>
-
-                            <div class="input-group">
-                                <label for="register-confirm-password">
-                                    <i class="fas fa-lock"></i>
-                                    Confirmar contraseña
-                                </label>
-                                <div class="password-input">
-                                    <input
-                                        type="password"
-                                        id="register-confirm-password"
-                                        name="confirmPassword"
-                                        required
-                                        placeholder="Repite tu contraseña"
-                                        autocomplete="new-password"
-                                    >
-                                    <button type="button" class="toggle-password" data-target="register-confirm-password">
-                                        <i class="fas fa-eye"></i>
-                                    </button>
-                                </div>
-                                <div class="input-feedback"></div>
-                            </div>
-                        </div>
-
-                        <div class="form-options">
-                            <label class="checkbox-label">
-                                <input type="checkbox" id="terms-accept" required>
-                                <span class="checkmark"></span>
-                                Acepto los <a href="#" class="link">términos y condiciones</a>
-                            </label>
-                        </div>
-
-                        <button type="submit" class="submit-btn">
-                            <span class="btn-text">Crear Cuenta</span>
-                            <div class="btn-loader" style="display: none;">
-                                <i class="fas fa-spinner fa-spin"></i>
-                            </div>
-                        </button>
-                    </form>
-
-                    <div class="divider">
-                        <span>o</span>
-                    </div>
-
-                    <div class="social-login">
-                        <button class="social-btn google-btn" data-provider="google">
-                            <i class="fab fa-google"></i>
-                            Registrarme con Google
-                        </button>
-                        <button class="social-btn facebook-btn" data-provider="facebook">
-                            <i class="fab fa-facebook-f"></i>
-                            Registrarme con Facebook
-                        </button>
-                    </div>
-                </div>
-
-                <!-- Footer del formulario -->
-                <div class="form-footer">
-                    <p>¿Necesitas ayuda? <a href="#" class="link">Contáctanos</a></p>
-                </div>
-            </div>
+        <div class="brand-features">
+            <div class="brand-feature">Ingredientes frescos</div>
+            <div class="brand-feature">Entrega en 30 min</div>
+            <div class="brand-feature">Calidad</div>
+            <div class="brand-feature">Pago fácil y seguro</div>
         </div>
     </div>
 
-    <!-- Modal de éxito -->
-    <div class="success-modal" id="success-modal">
-        <div class="success-content">
-            <div class="success-icon">
-                <i class="fas fa-check-circle"></i>
-            </div>
-            <h3>¡Bienvenido!</h3>
-            <p>Tu cuenta ha sido creada exitosamente</p>
-            <button class="success-btn">Continuar</button>
+    <!-- Panel derecho -->
+    <div class="login-form-panel">
+        <h2 class="login-title">Bienvenido</h2>
+        <p class="login-desc">Inicia sesión para ver nuestro menú</p>
+
+        <div class="login-error" id="loginError">
+            <span></span>
         </div>
+
+        <div class="login-hint">
+            Prueba: <strong>usuario@gmail.com</strong> / <strong>contraseña123</strong>
+        </div>
+
+        <!-- Formulario de inicio de sesión -->
+         <form id="loginForm" novalidate>
+
+            <div class="form-field">
+                <label>Correo electrónico</label>
+                <input type="email" id="emailInput" required>
+            </div>
+
+            <div class="form-field">
+                <label>Contraseña</label>
+                <input type="password" id="passwordInput" required>
+                <button type="button" id="togglePasswordBtn"></button>
+            </div>
+
+            <button type="submit" id="submitBtn" class="btn-primary btn-login">
+                Iniciar sesión →
+            </button>
+
+        </form>
+
     </div>
+</div>
+<script src="assets/js/login.js"></script>
 
-    <!-- Overlay -->
-    <div class="modal-overlay" id="modalOverlay"></div>
-
-    <script src="assets/js/login.js"></script>
 </body>
 </html>

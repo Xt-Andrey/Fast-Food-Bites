@@ -1,0 +1,78 @@
+body {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 50%, #1a1a1a 100%);
+    padding: 1rem;
+    position: relative;
+    overflow: hidden;
+}
+
+body::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: radial-gradient(circle at 25% 25%, rgba(255,107,53,0.1) 0%, transparent 50%),
+                      radial-gradient(circle at 75% 75%, rgba(255,107,53,0.08) 0%, transparent 50%);
+}
+
+.login-wrapper {
+    display: flex;
+    width: 100%;
+    max-width: 900px;
+    min-height: 560px;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 30px 80px rgba(0,0,0,0.5);
+    position: relative;
+    z-index: 1;
+}
+
+.login-brand-panel {
+    flex: 1;
+    background: linear-gradient(160deg, #ff6b35 0%, #c94e20 100%);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 3rem 2rem;
+    color: white;
+    text-align: center;
+}
+
+.brand-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+}
+
+.login-form-panel {
+    flex: 1;
+    background: #fff;
+    padding: 3rem 2.5rem;
+}
+
+.form-field {
+    margin-bottom: 1.25rem;
+}
+
+.form-field input {
+    width: 100%;
+    padding: 0.75rem;
+    border-radius: 8px;
+}
+
+.btn-login {
+    width: 100%;
+    padding: 0.8rem;
+}
+
+.login-error {
+    display: none;
+    background: #ffe5e5;
+    color: #d8000c;
+    padding: 0.6rem;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+    font-size: 0.85rem;
+}

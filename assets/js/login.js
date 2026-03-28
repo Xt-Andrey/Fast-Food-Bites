@@ -1,249 +1,151 @@
-/*
- * login.js
- * Lógica de UI y validación para la página de login.
- * Esta página usa un modo "intro -> formulario" donde el formulario
- * solo se revela cuando el usuario pulsa "Iniciar Sesión".
- */
+const VALID_EMAIL = 'usuario@gmail.com';
+const VALID_PASSWORD = 'contraseña123';
 
 document.addEventListener('DOMContentLoaded', () => {
-    // Elementos principales
-    const openLoginBtn = document.getElementById('open-login-btn');
-    const loginIntro = document.querySelector('.login-intro');
-    const formContainer = document.getElementById('login-form-container');
-    const tabButtons = document.querySelectorAll('.tab-btn');
-    const formContents = document.querySelectorAll('.form-content');
-    const successModal = document.getElementById('success-modal');
-    const successBtn = successModal?.querySelector('.success-btn');
 
     const loginForm = document.getElementById('loginForm');
-    const registerForm = document.getElementById('registerForm');
+    const emailInput = document.getElementById('emailInput');
+    const passwordInput = document.getElementById('passwordInput');
+    const togglePasswordBtn = document.getElementById('togglePasswordBtn');
+    const loginError = document.getElementById('loginError');
+    const submitBtn = document.getElementById('submitBtn');
 
-    const DEFAULT_SLEEP_MS = 1300;
+    //  Mostrar contraseña
+    togglePasswordBtn.addEventListener('click', () => {
+        const hidden = passwordInput.type === 'password';
+        passwordInput.type = hidden ? 'text' : 'password';
+        togglePasswordBtn.textContent = hidden ? '🙈' : '👁️';
+    });
 
-    // -------------------------------------------------------------
-    // Initialization
-    // -------------------------------------------------------------
-    init();
+    //  Login
+    loginForm.addEventListener('submit', (e) => {
+        e.preventDefault();
 
-    function init() {
-        setupTabNavigation();
-        setupPasswordToggles();
-        setupFormValidation();
-        setupSuccessModal();
-        setupOpenLoginButton();
+        const email = emailInput.value.trim();
+        const password = passwordInput.value;
 
-        // Iniciar con el formulario oculto (Vista intro)
-        if (formContainer) formContainer.classList.remove('active');
-    }
-
-    function setupOpenLoginButton() {
-        if (!openLoginBtn) return;
-
-        openLoginBtn.addEventListener('click', () => {
-            loginIntro?.classList.add('hidden');
-            formContainer?.classList.add('active');
-
-            // Foco inicial en el campo de correo
-            document.getElementById('login-email')?.focus();
-        });
-    }
-
-    // -------------------------------------------------------------
-    // Tabs: Login / Registro
-    // -------------------------------------------------------------
-    function setupTabNavigation() {
-        tabButtons.forEach(btn => {
-            btn.addEventListener('click', () => {
-                const target = btn.dataset.tab;
-                switchTab(target);
-            });
-        });
-    }
-
-    function switchTab(tab = 'login') {
-        tabButtons.forEach(btn => btn.classList.toggle('active', btn.dataset.tab === tab));
-        formContents.forEach(content => content.classList.toggle('active', content.id === `${tab}-form`));
-    }
-
-    // -------------------------------------------------------------
-    // Password visibility toggle
-    // -------------------------------------------------------------
-    function setupPasswordToggles() {
-        const toggleButtons = document.querySelectorAll('.toggle-password');
-
-        toggleButtons.forEach(btn => {
-            btn.addEventListener('click', () => {
-                const targetId = btn.dataset.target;
-                const input = document.getElementById(targetId);
-                if (!input) return;
-
-                const isPassword = input.type === 'password';
-                input.type = isPassword ? 'text' : 'password';
-
-                const icon = btn.querySelector('i');
-                if (icon) {
-                    icon.classList.toggle('fa-eye');
-                    icon.classList.toggle('fa-eye-slash');
-                }
-            });
-        });
-    }
-
-    // -------------------------------------------------------------
-    // Validación de formularios
-    // -------------------------------------------------------------
-    function setupFormValidation() {
-        [loginForm, registerForm].forEach(form => {
-            if (!form) return;
-
-            const requiredInputs = Array.from(form.querySelectorAll('input[required]'));
-            const submitBtn = form.querySelector('.submit-btn');
-
-            requiredInputs.forEach(input => {
-                input.addEventListener('input', () => {
-                    validateField(input);
-                    updateSubmitState(form, submitBtn);
-                });
-
-                input.addEventListener('blur', () => validateField(input));
-            });
-
-            form.addEventListener('submit', event => {
-                event.preventDefault();
-                if (!validateForm(form)) return;
-
-                const isLogin = form.id === 'loginForm';
-                handleFormSubmit(form, isLogin);
-            });
-
-            updateSubmitState(form, submitBtn);
-        });
-    }
-
-    function validateForm(form) {
-        const inputs = Array.from(form.querySelectorAll('input[required]'));
-        return inputs.reduce((valid, input) => validateField(input) && valid, true);
-    }
-
-    function updateSubmitState(form, submitBtn) {
-        if (!submitBtn) return;
-        submitBtn.disabled = !validateForm(form);
-    }
-
-    function validateField(input) {
-        const value = input.value.trim();
-        const feedback = input.closest('.input-group')?.querySelector('.input-feedback');
-        let isValid = true;
-        let message = '';
-
-        if (!value) {
-            isValid = false;
-            message = 'Este campo es obligatorio';
-        }
-
-        if (isValid && input.type === 'email') {
-            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            if (!emailRegex.test(value)) {
-                isValid = false;
-                message = 'Ingresa un correo válido';
-            }
-        }
-
-        if (isValid && input.type === 'password') {
-            if (input.id === 'register-password') {
-                if (value.length < 8) {
-                    isValid = false;
-                    message = 'Mínimo 8 caracteres';
-                } else if (!/(?=.*[A-Z])(?=.*[a-z])(?=.*\d)/.test(value)) {
-                    isValid = false;
-                    message = 'Incluye mayúsculas, minúsculas y números';
-                }
-            }
-
-            if (input.id === 'register-confirm-password') {
-                const password = document.getElementById('register-password')?.value || '';
-                if (value !== password) {
-                    isValid = false;
-                    message = 'Las contraseñas no coinciden';
-                }
-            }
-        }
-
-        updateFieldAppearance(input, feedback, isValid, message);
-        return isValid;
-    }
-
-    function updateFieldAppearance(input, feedback, isValid, message) {
-        input.classList.toggle('valid', isValid);
-        input.classList.toggle('invalid', !isValid);
-
-        if (!feedback) return;
-
-        feedback.textContent = isValid ? '✓' : message;
-        feedback.classList.toggle('success', isValid);
-        feedback.classList.toggle('error', !isValid);
-    }
-
-    // -------------------------------------------------------------
-    // Envío de formularios (simulado)
-    // -------------------------------------------------------------
-    function handleFormSubmit(form, isLogin) {
-        const submitBtn = form.querySelector('.submit-btn');
-        const btnText = submitBtn?.querySelector('.btn-text');
-        const loader = submitBtn?.querySelector('.btn-loader');
-
-        if (submitBtn) submitBtn.disabled = true;
-        if (loader) loader.style.display = 'flex';
-        if (btnText) btnText.textContent = isLogin ? 'Iniciando...' : 'Registrando...';
+        submitBtn.textContent = 'Verificando...';
+        submitBtn.disabled = true;
 
         setTimeout(() => {
-            if (submitBtn) submitBtn.disabled = false;
-            if (loader) loader.style.display = 'none';
-            if (btnText) btnText.textContent = isLogin ? 'Iniciar Sesión' : 'Crear Cuenta';
 
-            const message = isLogin ? '¡Inicio de sesión exitoso!' : '¡Cuenta creada exitosamente!';
-            showSuccessModal(message, isLogin);
+            if (email === VALID_EMAIL && password === VALID_PASSWORD) {
 
-            if (!isLogin) {
-                switchTab('login');
+                sessionStorage.setItem('loggedIn', 'true');
+                sessionStorage.setItem('userEmail', email);
+
+                window.location.href = 'index.html';
+
+            } else {
+
+                loginError.style.display = 'block';
+                loginError.querySelector('span').textContent = 'Correo o contraseña incorrectos';
+
+                submitBtn.textContent = 'Iniciar sesión';
+                submitBtn.disabled = false;
+
+                passwordInput.value = '';
             }
 
-            form.reset();
-            form.querySelectorAll('.input-feedback').forEach(el => el.textContent = '');
-            form.querySelectorAll('input').forEach(i => i.classList.remove('valid', 'invalid'));
+        }, 700);
+    });
 
-            if (isLogin) {
-                // Regresar a la vista de inicio (intro) para simular un cierre de sesión rápido
-                formContainer?.classList.remove('active');
-                loginIntro?.classList.remove('hidden');
-            }
-        }, DEFAULT_SLEEP_MS);
+});
+
+(function () {
+
+    /**
+     * Valida el campo de email con una expresión regular.
+     * @returns {boolean} true si el email es válido
+     */
+    function validateEmail() {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        const emailValue = emailInput.value.trim();
+
+        if (emailValue === '') {
+            setFieldState(emailInput, 'empty');
+            return false;
+        }
+
+        if (!emailRegex.test(emailValue)) {
+            setFieldState(emailInput, 'error');
+            setFieldMessage(emailInput, 'Ingresa un correo electrónico válido');
+            return false;
+        }
+
+        setFieldState(emailInput, 'success');
+        return true;
     }
 
-    // -------------------------------------------------------------
-    // Modal de éxito
-    // -------------------------------------------------------------
-    function setupSuccessModal() {
-        if (!successModal || !successBtn) return;
+    /**
+     * Valida que la contraseña no esté vacía y tenga mínimo 6 caracteres.
+     * @returns {boolean} true si la contraseña es válida
+     */
+    function validatePassword() {
+        const passwordValue = passwordInput.value;
 
-        successBtn.addEventListener('click', () => {
-            successModal.classList.remove('show');
-            loginIntro?.classList.remove('hidden');
-            formContainer?.classList.remove('active');
-        });
+        if (passwordValue === '') {
+            setFieldState(passwordInput, 'empty');
+            return false;
+        }
+
+        if (passwordValue.length < 6) {
+            setFieldState(passwordInput, 'error');
+            setFieldMessage(passwordInput, 'La contraseña debe tener al menos 6 caracteres');
+            return false;
+        }
+
+        setFieldState(passwordInput, 'success');
+        return true;
     }
 
-    function showSuccessModal(message, isLogin = true) {
-        if (!successModal) return;
+    /**
+     * Aplica estados visuales al campo.
+     * @param {HTMLElement} input
+     * @param {string} state 
+     */
+    function setFieldState(input, state) {
+        const wrapper = input.closest('.form-field');
+        if (!wrapper) return;
+        wrapper.classList.remove('field-error', 'field-success');
+        if (state === 'error') wrapper.classList.add('field-error');
+        if (state === 'success') wrapper.classList.add('field-success');
 
-        const title = successModal.querySelector('h3');
-        const text = successModal.querySelector('p');
+        // Ocultar error general cuando el usuario corrige
+        if (state !== 'error') {
+            hideError();
+        }
+    }
 
-        if (title) title.textContent = message;
-        if (text) text.textContent = isLogin
-            ? 'Has iniciado sesión con éxito. ¡Bienvenido!'
-            : 'Cuenta creada. Ahora inicia sesión para continuar.';
+    /**
+     * Muestra un mensaje de error debajo del campo.
+     * @param {HTMLElement} input
+     * @param {string} message
+     */
+    function setFieldMessage(input, message) {
+        const wrapper = input.closest('.form-field');
+        if (!wrapper) return;
+        let msg = wrapper.querySelector('.field-msg');
+        if (!msg) {
+            msg = document.createElement('span');
+            msg.className = 'field-msg';
+            wrapper.appendChild(msg);
+        }
+        msg.textContent = message;
+    }
 
-        successModal.classList.add('show');
+    /** Muestra el error general de login */
+    function showError(message) {
+        if (loginError) {
+            loginError.textContent = message;
+            loginError.style.display = 'flex';
+        }
+    }
+
+    /** Oculta el error general de login */
+    function hideError() {
+        if (loginError) {
+            loginError.style.display = 'none';
+        }
     }
 });

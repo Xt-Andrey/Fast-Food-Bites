@@ -3,126 +3,144 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fast Food Bites - Premium Experience</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <title>Fast Food Bites</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="assets/css/style.css">
-    <!-- Los CSS de header/sidebar/footer se inyectan dinámicamente desde main.js -->
 </head>
 <body>
 
-    <!-- Botón flotante WhatsApp -->
-    <a href="https://wa.me/573102402810" target="_blank" class="whatsapp-float" aria-label="Contáctanos por WhatsApp">
-        <i class="fab fa-whatsapp"></i>
-    </a>
+    <div id="header-container"></div>
+    <div id="sidebar-container"></div>
 
-    <!-- FRAGMENTO HEADER: main.js carga components/header/header.html aquí -->
-    <div id="header-placeholder"></div>
+    <div class="app-layout">
+        <main class="main-content">
 
-    <!-- HERO -->
-    <section class="hero">
-        <div class="hero-particles"></div>
-        <h1 class="hero-title">Sabor Premium<br/>a tu Alcance</h1>
-        <p class="hero-subtitle">Experimenta la mejor comida rápida con ingredientes selectos y un servicio excepcional</p>
-    </section>
-
-    <!-- CARRUSEL DE PROMOCIONES -->
-    <section class="promotions-slider">
-        <div class="slider-track" id="slider-track">
-            <div class="slide promo-1">
-                <div class="promo-text">
-                    <h3>🍔 Doble Martes de Burger</h3>
-                    <p>¡Compra una hamburguesa, la segunda a mitad de precio! Exclusivo online.</p>
+            <!-- Seccion: Menu -->
+            <section id="menu" class="page-section">
+                <div class="hero-banner">
+                    <h1>El mejor <span>menu</span><br>de la ciudad</h1>
+                    <p>Ingredientes frescos, sabores unicos y entrega en tiempo record. Pide ahora!</p>
+                    <button class="btn-primary" onclick="document.querySelector('.products-section').scrollIntoView({behavior:'smooth'})">
+                        Ver menu completo
+                    </button>
                 </div>
-                <button class="promo-btn" data-promo-id="1">Ver Oferta</button>
-            </div>
-            <div class="slide promo-2">
-                <div class="promo-text">
-                    <h3>🍟 Combo Familiar Deluxe</h3>
-                    <p>4 Menús, papas grandes y 2 malteadas por solo $193,000.00</p>
-                </div>
-                <button class="promo-btn" data-promo-id="2">¡Pedir Ahora!</button>
-            </div>
-        </div>
-        <div class="slider-dots" id="slider-dots">
-            <span class="dot active" data-slide="0"></span>
-            <span class="dot" data-slide="1"></span>
-        </div>
-    </section>
 
-    <!-- SECCIÓN DE PRODUCTOS -->
-    <section class="products-section">
-        <div class="section-header">
-            <h2 class="section-title">Nuestro Menú Exclusivo</h2>
-        </div>
+                <div class="products-section">
+                    <h2 class="section-title">Nuestro <span>Menu</span></h2>
 
-        <!--
-            PLANTILLA DE PRODUCTO: requerimiento <template>
-            JavaScript clona esta estructura para cada producto del menú.
-        -->
-        <template id="product-template">
-            <div class="product-card">
-                <div class="product-image-wrapper">
-                    <img class="product-img" src="" alt="" loading="lazy">
-                    <div class="product-badge"></div>
-                    <div class="product-glow"></div>
+                    <div class="category-filters">
+                        <button class="filter-btn active" data-filter="todos">Todos</button>
+                        <button class="filter-btn" data-filter="burgers">Burgers</button>
+                        <button class="filter-btn" data-filter="chicken">Chicken</button>
+                        <button class="filter-btn" data-filter="sides">Sides</button>
+                        <button class="filter-btn" data-filter="hotdogs">Hotdogs</button>
+                        <button class="filter-btn" data-filter="bebidas">Bebidas</button>
+                    </div>
+
+                    <div class="products-grid" id="products-container"></div>
                 </div>
-                <div class="product-info">
-                    <h3 class="product-name"></h3>
-                    <p class="product-description"></p>
-                    <div class="product-footer">
-                        <div class="product-price"></div>
-                        <button class="add-to-cart-btn" data-id="">
-                            <span>Añadir</span>
-                            <i class="fas fa-plus"></i>
-                        </button>
+            </section>
+
+            <!-- Seccion: Nosotros -->
+            <section id="nosotros" class="page-section about-section">
+                <h2 class="section-title">Sobre <span>Nosotros</span></h2>
+                <div class="about-content">
+                    <div class="about-text">
+                        <h3>Nuestra historia</h3>
+                        <p>Fast Food Bites nacio en Ocaña con una sola mision: ofrecer comida rapida de verdadera calidad. Creemos que la buena comida no tiene que ser lenta ni costosa, por eso cada producto en nuestro menu es preparado con ingredientes frescos, seleccionados cuidadosamente para garantizar el mejor sabor en cada bocado.</p>
+                        <p>Somos un equipo apasionado por la gastronomia urbana. Desde nuestras hamburguesas Angus hasta nuestras bebidas artesanales, cada receta ha sido desarrollada para superar las expectativas de nuestros clientes. La satisfaccion de quien nos visita es nuestra mayor recompensa.</p>
+                        <p>Con mas de tres anos de experiencia en el mercado ocañero, hemos servido a miles de familias y amigos que han hecho de Fast Food Bites su lugar favorito para compartir momentos especiales alrededor de una buena comida.</p>
+                    </div>
+                    <div class="about-values">
+                        <div class="value-card">
+                            <h4>Calidad</h4>
+                            <p>Utilizamos ingredientes frescos y de primera categoria en cada preparacion.</p>
+                        </div>
+                        <div class="value-card">
+                            <h4>Rapidez</h4>
+                            <p>Entrega en tiempo record sin sacrificar el sabor ni la presentacion.</p>
+                        </div>
+                        <div class="value-card">
+                            <h4>Sabor</h4>
+                            <p>Recetas unicas desarrolladas por nuestro equipo de cocina con anos de experiencia.</p>
+                        </div>
                     </div>
                 </div>
+            </section>
+
+            <!-- Seccion: Contactenos -->
+            <section id="contacto" class="page-section contact-section">
+                <h2 class="section-title">Cont&aacute;ctenos</h2>
+                <p class="section-subtitle">Envianos tu mensaje y te responderemos a la brevedad posible.</p>
+                <div class="contact-layout">
+                    <form class="contact-form" id="contactForm">
+                        <div class="form-group">
+                            <label for="contactName">Nombre completo</label>
+                            <input type="text" id="contactName" name="name" placeholder="Tu nombre" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="contactEmail">Correo electronico</label>
+                            <input type="email" id="contactEmail" name="email" placeholder="tucorreo@ejemplo.com" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="contactSubject">Asunto</label>
+                            <input type="text" id="contactSubject" name="subject" placeholder="Asunto de tu mensaje">
+                        </div>
+                        <div class="form-group">
+                            <label for="contactMessage">Mensaje</label>
+                            <textarea id="contactMessage" name="message" rows="5" placeholder="Escribe tu mensaje aqui..." required></textarea>
+                        </div>
+                        <button type="submit" class="btn-primary contact-submit-btn">Enviar mensaje</button>
+                    </form>
+                    <div class="contact-info">
+                        <h3>Informacion de contacto</h3>
+                        <div class="contact-detail">
+                            <strong>Direccion</strong>
+                            <p>Calle 123 #45-67, Ocaña, Colombia</p>
+                        </div>
+                        <div class="contact-detail">
+                            <strong>Telefono</strong>
+                            <p>+57 310 240 2810</p>
+                        </div>
+                        <div class="contact-detail">
+                            <strong>Correo</strong>
+                            <p>andreygalvis6002@gmail.com</p>
+                        </div>
+                        <div class="contact-detail">
+                            <strong>Horario</strong>
+                            <p>Lunes a Domingo: 06:00 pm - 11:30 pm</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <div id="footer-container"></div>
+
+    <template id="product-template">
+        <div class="product-card-wrapper">
+            <span class="product-badge">Popular</span>
+            <div class="product-img-wrapper">
+                <img data-field="image" src="" alt="">
             </div>
-        </template>
-
-        <div class="products-grid" id="products-grid"></div>
-    </section>
-
-    <!-- SECCIÓN DE INFORMACIÓN / CONTACTO -->
-    <section class="info-section" id="contact-us">
-        <div class="info-content-wrapper">
-            <div class="info-card" id="about-us">
-                <h2 class="section-title">Acerca de Nosotros</h2>
-                <p>Somos <strong>Fast Food Bites</strong>, una experiencia gastronómica que combina la velocidad de la comida rápida con la calidad de los ingredientes <em>premium</em>. Nuestro compromiso es ofrecer sabores inigualables y un servicio excepcional en una plataforma digital moderna.</p>
-                <p>Nuestra misión es redefinir la comida rápida.</p>
-
-                <h2 class="section-title contact-title">Contáctanos</h2>
-                <div class="contact-details">
-                    <p><i class="fas fa-phone-alt"></i> Teléfono: +57 310 240 2810</p>
-                    <p><i class="fas fa-envelope"></i> Email: <a href="mailto:andreygalvis6002@gmail.com">andreygalvis6002@gmail.com</a></p>
-                    <p><i class="fas fa-map-marker-alt"></i> Dirección: Cra 5 # 10-20, Ocaña, NS - Colombia</p>
-                </div>
-                <div class="social-icons">
-                    <a href="https://facebook.com" target="_blank" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
-                    <a href="https://instagram.com" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-                    <a href="https://twitter.com"   target="_blank" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
-                </div>
+            <div class="product-body">
+                <h3 class="product-name" data-field="name"></h3>
+                <p class="product-description" data-field="description"></p>
+            </div>
+            <div class="product-footer">
+                <span class="product-price" data-field="price"></span>
+                <button class="product-add-btn">+ Agregar</button>
             </div>
         </div>
-    </section>
+    </template>
 
-    <!-- FRAGMENTO SIDEBAR: main.js carga components/sidebar/sidebar.html aquí -->
-    <div id="sidebar-placeholder"></div>
-
-    <!-- Web Components con Shadow DOM (definidos en assets/js/components.js) -->
-    <user-modal-component></user-modal-component>
-    <suggestion-modal-component></suggestion-modal-component>
-
-    <!-- Overlay para modales -->
-    <div class="overlay" id="overlay"></div>
-
-    <!-- FRAGMENTO FOOTER: main.js carga components/footer/footer.html aquí -->
-    <div id="footer-placeholder"></div>
-
-    <!-- SCRIPTS: JS de cada componente primero, luego el orquestador -->
+    <script src="assets/js/components.js"></script>
     <script src="components/header/header.js"></script>
     <script src="components/sidebar/sidebar.js"></script>
-    <script src="assets/js/components.js"></script>
     <script src="assets/js/main.js"></script>
+
 </body>
 </html>

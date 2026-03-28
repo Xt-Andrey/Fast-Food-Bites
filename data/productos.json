@@ -1,52 +1,92 @@
 [
   {
-    "id": "p001",
-    "name": "Hamburguesa Clásica",
-    "description": "Carne 100% res, queso cheddar, lechuga, tomate y salsa secreta en pan artesanal.",
-    "category": "Hamburguesas",
-    "price": 8.99,
-    "image": "assets/images/productos/hamburguesa-clasica.jpg",
-    "tags": ["clásico", "carne", "popular"],
-    "available": true
+    "id": 1,
+    "nombre": "Classic Burger",
+    "precio": 18900,
+    "descripcion": "Carne angus 200g, lechuga, tomate, cebolla caramelizada y salsa secreta.",
+    "imagen": "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=400&q=80",
+    "categoria": "burgers",
+    "popular": true
   },
   {
-    "id": "p002",
-    "name": "Papas a la Francesa",
-    "description": "Papas doradas y crujientes con un toque de sal marina.",
-    "category": "Acompañamientos",
-    "price": 3.49,
-    "image": "assets/images/productos/papas-francesas.jpg",
-    "tags": ["vegetariano", "crujiente"],
-    "available": true
+    "id": 2,
+    "nombre": "BBQ Bacon Burger",
+    "precio": 22900,
+    "descripcion": "Doble carne, tocino ahumado, queso cheddar derretido y salsa BBQ artesanal.",
+    "imagen": "https://images.unsplash.com/photo-1553979459-d2229ba7433b?w=400&q=80",
+    "categoria": "burgers",
+    "popular": true
   },
   {
-    "id": "p003",
-    "name": "Alitas BBQ",
-    "description": "Alitas de pollo bañadas en salsa barbacoa casera, acompañadas de aderezo ranch.",
-    "category": "Entradas",
-    "price": 9.99,
-    "image": "assets/images/productos/alitas-bbq.jpg",
-    "tags": ["picante", "para compartir"],
-    "available": true
+    "id": 3,
+    "nombre": "Crispy Chicken",
+    "precio": 17500,
+    "descripcion": "Pollo crocante con mayonesa de jalapeno, col morada y pepinillos.",
+    "imagen": "https://chefeel.com/chefgeneralfiles/2024/10/chicken-burger-2953388_1280-880x762.jpg",
+    "categoria": "chicken",
+    "popular": false
   },
   {
-    "id": "p004",
-    "name": "Ensalada César",
-    "description": "Lechuga romana, crutones, queso parmesano y aderezo César fresco.",
-    "category": "Ensaladas",
-    "price": 6.99,
-    "image": "assets/images/productos/ensalada-cesar.jpg",
-    "tags": ["fresco", "ligero", "vegetariano"],
-    "available": true
+    "id": 4,
+    "nombre": "Papas Loaded",
+    "precio": 12900,
+    "descripcion": "Papas fritas gruesas con queso cheddar fundido, tocino y cebollín.",
+    "imagen": "https://images.unsplash.com/photo-1573080496219-bb080dd4f877?w=400&q=80",
+    "categoria": "sides",
+    "popular": true
   },
   {
-    "id": "p005",
-    "name": "Malteada de Vainilla",
-    "description": "Malteada cremosa de vainilla con cobertura de crema batida.",
-    "category": "Bebidas",
-    "price": 4.49,
-    "image": "assets/images/productos/malteada-vainilla.jpg",
-    "tags": ["dulce", "frío"],
-    "available": true
+    "id": 5,
+    "nombre": "Mega Hotdog",
+    "precio": 15900,
+    "descripcion": "Salchicha premium, mostaza Dijon, cebolla crujiente y pico de gallo.",
+    "imagen": "https://estaticos-cdn.prensaiberica.es/clip/a7142937-40ae-4701-9423-c19e7a60530d_16-9-discover-aspect-ratio_default_1218557.jpg",
+    "categoria": "hotdogs",
+    "popular": false
+  },
+  {
+    "id": 6,
+    "nombre": "Milkshake Oreo",
+    "precio": 11500,
+    "descripcion": "Batido cremoso con galletas Oreo, crema chantilly y sirope de chocolate.",
+    "imagen": "https://images.unsplash.com/photo-1572490122747-3968b75cc699?w=400&q=80",
+    "categoria": "bebidas",
+    "popular": true
+  },
+  {
+    "id": 7,
+    "nombre": "Double Smash Burger",
+    "precio": 24900,
+    "descripcion": "Dos carnes aplastadas en plancha, queso americano, pepinillos y salsa especial.",
+    "imagen": "https://images.unsplash.com/photo-1550317138-10000687a72b?w=400&q=80",
+    "categoria": "burgers",
+    "popular": true
+  },
+  {
+    "id": 8,
+    "nombre": "Chicken Wings",
+    "precio": 19900,
+    "descripcion": "Alitas de pollo crujientes con salsa buffalo o miel mostaza. Incluye dip de queso azul.",
+    "imagen": "https://images.unsplash.com/photo-1567620832903-9fc6debc209f?w=400&q=80",
+    "categoria": "chicken",
+    "popular": true
+  },
+  {
+    "id": 9,
+    "nombre": "Aros de Cebolla",
+    "precio": 8900,
+    "descripcion": "Aros de cebolla rebozados en panko dorado, crujientes por fuera y suaves por dentro.",
+    "imagen": "https://images.unsplash.com/photo-1639024471283-03518883512d?w=400&q=80",
+    "categoria": "sides",
+    "popular": false
+  },
+  {
+    "id": 10,
+    "nombre": "Limonada Natural",
+    "precio": 7500,
+    "descripcion": "Limonada fresca preparada al momento con limon real, azucar y agua mineral.",
+    "imagen": "https://images.unsplash.com/photo-1621263764928-df1444c5e859?w=400&q=80",
+    "categoria": "bebidas",
+    "popular": false
   }
 ]

@@ -1,90 +1,90 @@
-/* components/footer/footer.css */
-/* Estilos específicos del componente de pie de página */
-
-.footer {
-    background: rgba(0, 0, 0, 0.85);
-    color: #ccc;
-    padding: 3rem 2rem 1.5rem;
-    margin-top: 4rem;
+.site-footer {
+    background-color: var(--color-black);
+    color: rgba(255, 255, 255, 0.75);
+    margin-top: auto;
 }
 
-/* Columnas del footer */
-.footer-columns-wrapper {
-    max-width: 1200px;
-    margin: 0 auto 2rem;
+.footer-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 3rem 2rem 1.5rem;
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: 2fr 1fr 1fr;
     gap: 2rem;
 }
 
-.footer-column h4 {
-    color: #ff6b35;
-    font-size: 1rem;
-    font-weight: 600;
-    margin-bottom: 1rem;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
+.footer-brand .footer-logo {
+    font-family: var(--font-display);
+    font-size: 1.3rem;
+    color: var(--color-white);
+    display: block;
+    margin-bottom: 0.75rem;
+    letter-spacing: 1px;
 }
 
-.footer-column ul {
+.footer-brand .footer-logo strong {
+    color: var(--color-primary);
+}
+
+.footer-brand p {
+    font-size: 0.85rem;
+    line-height: 1.6;
+    color: rgba(255,255,255,0.5);
+}
+
+.footer-links h4,
+.footer-contact h4 {
+    font-family: var(--font-display);
+    font-size: 1rem;
+    color: var(--color-primary);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 1rem;
+}
+
+.footer-links ul {
     list-style: none;
-    padding: 0;
-    margin: 0;
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
 }
 
-.footer-column ul li a {
-    color: #aaa;
+.footer-links a {
+    color: rgba(255,255,255,0.6);
     text-decoration: none;
-    font-size: 0.9rem;
-    transition: color 0.2s ease;
+    font-size: 0.85rem;
+    transition: color var(--transition);
 }
 
-.footer-column ul li a:hover {
-    color: #ff6b35;
+.footer-links a:hover {
+    color: var(--color-primary);
 }
 
-/* Barra inferior */
-.footer-bottom-bar {
-    max-width: 1200px;
-    margin: 0 auto;
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
-    padding-top: 1.5rem;
+.footer-contact p {
+    font-size: 0.85rem;
+    margin-bottom: 0.4rem;
+    color: rgba(255,255,255,0.6);
+}
+
+.footer-bottom {
+    border-top: 1px solid rgba(255,255,255,0.1);
+    padding: 1.25rem 2rem;
     display: flex;
-    flex-wrap: wrap;
     justify-content: space-between;
     align-items: center;
-    gap: 0.75rem;
-    font-size: 0.85rem;
-    color: #888;
-}
-
-.logo-footer {
-    font-size: 1.1rem;
-    font-weight: bold;
-    color: #ff6b35;
-}
-
-.logo-footer strong {
-    color: #fff;
-}
-
-.tech-info {
     font-size: 0.78rem;
-    color: #666;
+    color: rgba(255,255,255,0.4);
+    max-width: 1400px;
+    margin: 0 auto;
 }
 
-/* Responsive */
 @media (max-width: 768px) {
-    .footer-columns-wrapper {
+    .footer-container {
         grid-template-columns: 1fr;
-        gap: 1.5rem;
     }
-
-    .footer-bottom-bar {
+    .footer-bottom {
         flex-direction: column;
+        gap: 0.5rem;
         text-align: center;
     }
 }

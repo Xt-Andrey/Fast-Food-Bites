@@ -1,39 +1,29 @@
-<!-- components/header/header.html -->
-<!-- Fragmento del encabezado. Se carga dinámicamente desde main.js -->
-<nav class="navbar">
-    <div class="navbar-glass">
-        <div class="logo">
-            <div class="logo-icon">
-                <i class="fas fa-fire-flame-curved"></i>
+<!--Encabezado-->
+<link rel="stylesheet" href="components/header/header.css">
+
+<header class="site-header">
+    <div class="header-container">
+        <div class="header-logo">
+            <div class="logo-text">
+                <span class="logo-brand">Fast Food</span>
+                <span class="logo-sub">BITES</span>
             </div>
-            <span>Fast Food <strong>Bites</strong></span>
         </div>
-        <div class="nav-links">
-            <a href="#products-grid">Menú</a>
-            <a href="#about-us">Nosotros</a>
-            <a href="#contact-us">Contacto</a>
-            <button class="suggestion-button" id="open-suggestion-btn">
-                <i class="fas fa-comment-dots"></i>
-                <span>Sugerencias</span>
+
+        <nav class="header-nav">
+            <a href="#menu" class="nav-link active" data-section="menu">Menu</a>
+            <a href="#nosotros" class="nav-link" data-section="nosotros">Nosotros</a>
+            <a href="#contacto" class="nav-link" data-section="contacto">Contactenos</a>
+        </nav>
+
+        <div class="header-actions">
+            <button class="cart-btn" id="toggleCartBtn" aria-label="Abrir carrito">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13l-1.5 6h13M7 13L5.4 5M10 21a1 1 0 100-2 1 1 0 000 2zm8 0a1 1 0 100-2 1 1 0 000 2z"/>
+                </svg>
+                <span class="cart-badge" id="cartBadge">0</span>
             </button>
-            <button class="login-button" id="open-login-btn-desktop">
-                <i class="fas fa-user-circle"></i>
-                <span>Iniciar Sesión</span>
-            </button>
-        </div>
-        <div class="cart-btn-wrapper">
-            <button class="cart-button suggestion-button-mobile" id="open-suggestion-btn-mobile">
-                <i class="fas fa-comment-dots"></i>
-            </button>
-            <button class="cart-button login-button-mobile" id="open-login-btn-mobile">
-                <i class="fas fa-user-circle"></i>
-                <span>Acceso</span>
-            </button>
-            <button class="cart-button" id="open-cart-btn">
-                <i class="fas fa-shopping-cart"></i>
-                <span>Carrito</span>
-                <span id="cart-count">0</span>
-            </button>
+            <button class="logout-btn" id="logoutBtn">Salir</button>
         </div>
     </div>
-</nav>
+</header>
