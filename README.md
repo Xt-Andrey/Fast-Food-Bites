@@ -196,8 +196,8 @@ El repositorio evidencia trabajo en equipo mediante:
 ## 🛠️ Tecnologías Utilizadas
 
 - **HTML5** — Estructura semántica, elemento `<template>`, Custom Elements
-- **CSS3** — Flexbox, Grid, animaciones, variables CSS, diseño responsivo
-- **JavaScript (ES6+)** — Módulos, async/await, fetch API, Shadow DOM, CustomEvents
+- **CSS3** — Flexbox, Grd, animaciones, variables CSS, diseño responsivo
+- **JavaScript (ES6+)** — Módulos, Shadow DOM
 
 ---
 
