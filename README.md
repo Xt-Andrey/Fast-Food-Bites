@@ -205,5 +205,5 @@ El repositorio evidencia trabajo en equipo mediante:
 
 | Nombre | codigo |
 |--------|-----|
-| [RUBIEL ANDREY GALVIS GALVIS] | 192483 |
-| [ARNOLD CLARO] | 192 |
+| RUBIEL ANDREY GALVIS GALVIS | 192483 |
+| ARNOLD CLARO | 192 |
