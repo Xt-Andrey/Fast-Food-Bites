@@ -448,7 +448,7 @@ cartItemsList.addEventListener('click', (e) => {
 });
 
 // Botón de Finalizar Pedido 
-checkoutBtn.addEventListener('click', () => {
+checkoutBtn.addEventListener('click', () => {b
     if (cart.length > 0) {
         alert(`🎉 ¡Pedido confirmado!\n\nTotal: ${cartTotalElement.textContent}\n\n✨ Gracias por elegir Fast Food Bites Premium!`);
         cart = [];
