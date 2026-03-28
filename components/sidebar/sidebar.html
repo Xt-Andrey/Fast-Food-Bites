@@ -1,0 +1,57 @@
+<!-- Carrito lateral Cargado dinamicamente-->
+<link rel="stylesheet" href="components/sidebar/sidebar.css">
+
+<aside class="cart-sidebar" id="cartSidebar">
+    <div class="sidebar-header">
+        <h2 class="sidebar-title">Tu Pedido</h2>
+        <button class="sidebar-close-btn" id="closeSidebarBtn" aria-label="Cerrar carrito">&#x2715;</button>
+    </div>
+
+    <!-- Menu de navegacion lateral -->
+    <nav class="sidebar-nav">
+        <p class="sidebar-nav-label">Categorias</p>
+        <ul class="sidebar-nav-list">
+            <li><a href="#" class="sidebar-nav-link" data-filter="todos">Todos</a></li>
+            <li><a href="#" class="sidebar-nav-link" data-filter="burgers">Burgers</a></li>
+            <li><a href="#" class="sidebar-nav-link" data-filter="chicken">Chicken</a></li>
+            <li><a href="#" class="sidebar-nav-link" data-filter="sides">Sides</a></li>
+            <li><a href="#" class="sidebar-nav-link" data-filter="bebidas">Bebidas</a></li>
+        </ul>
+    </nav>
+
+    <hr class="sidebar-divider">
+
+    <!-- Items del carrito -->
+    <div class="cart-items" id="cartItems">
+        <div class="cart-empty" id="cartEmpty">
+            <p>Tu carrito esta vacio</p>
+            <small>Agrega algo delicioso!</small>
+        </div>
+        <ul class="cart-list" id="cartList"></ul>
+    </div>
+
+    <!-- Resumen y total -->
+    <div class="cart-summary" id="cartSummary" style="display: none;">
+        <div class="summary-row">
+            <span>Subtotal</span>
+            <span id="cartSubtotal">$0</span>
+        </div>
+        <div class="summary-row">
+            <span>Domicilio</span>
+            <span>$3.500</span>
+        </div>
+        <div class="summary-row summary-total">
+            <span>Total</span>
+            <span id="cartTotal">$0</span>
+        </div>
+        <button class="btn-primary sidebar-order-btn" id="orderBtn">
+            Ordenar ahora
+        </button>
+        <button class="btn-secondary sidebar-clear-btn" id="clearCartBtn">
+            Vaciar carrito
+        </button>
+    </div>
+</aside>
+
+<!-- Overlay oscuro -->
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
